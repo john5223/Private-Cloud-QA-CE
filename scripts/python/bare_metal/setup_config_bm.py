@@ -1,0 +1,1 @@
+print "!!## -- Running Setup and Config for Bare Metal -- ##!!"

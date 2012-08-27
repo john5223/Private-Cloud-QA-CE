@@ -1,0 +1,1 @@
+print "!!## -- Wiping Bare Metal Infrastructure -- ##!!"

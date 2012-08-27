@@ -1,0 +1,1 @@
+print "!!## -- Tearing Down Virtualized Infrastructure -- ##!!"

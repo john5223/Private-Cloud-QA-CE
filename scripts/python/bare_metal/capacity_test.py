@@ -1,0 +1,1 @@
+print "!!## -- Running Bare Metal Capacity Tests -- ##!!"
