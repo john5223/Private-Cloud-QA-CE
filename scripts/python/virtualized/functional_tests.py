@@ -1,1 +1,2 @@
-print "!!## -- Running Virtualized Functional Tests -- ##!!"
+print "!!## -- Starting Virtualized Functional Tests -- ##!!"
+print "!!## -- Finished Virtualized Functional Tests -- ##!!"
