@@ -3,10 +3,15 @@ import json
 from account import Account
 
 class CloudServer():
-	""" Base class for a cloud server account"""
+	"""
+	Base class for a cloud server account
+	"""
 	
 	def __init__(self, account):
-		""" Initializes and builds the Cloud Server Account"""
+		"""
+		Initializes and builds the Cloud Server Account
+		"""
+		
 		self.account = account
 		self.cloud_server_json()
 		self.gen_auth_token()
@@ -15,9 +20,11 @@ class CloudServer():
 		self.images()
 		self.flavors()
 
-	## generates a auth token for the account
 	def cloud_server_json(self):
-		""" This method connects to Rackspace Public Cloud APIU and returns a JSON of the requested cloud server"""
+		
+		""" 
+		This method connects to Rackspace Public Cloud APIU and returns a JSON of the requested cloud server
+		"""
 		
 		# data to be sent to the cloud servers auth
 		payload = {"auth":
@@ -35,24 +42,52 @@ class CloudServer():
 		## return the generated json
 		self.csjson = r.json
 
-	## Gather the auth token
 	def auth_token(self):
-		""" Gets the auth token for connecting to the cloud server api"""
+		
+		"""
+		Gets the auth token for connecting to the cloud server api
+		"""
+		
 		self.auth_token = self.json['access']['token']['id']
 
-	## Gather the account number
 	def account_number(self):
-		""" Gets the account number for the Cloud Server Account"""
+		
+		"""
+		Gets the account number for the Cloud Server Account
+		"""
+		
 		self.account_num = self.json['access']['token']['tenant']['id']
 
-	## generates the catalog dict for the cloud server account
 	def catalogs(self):
-		""" Gets the catalog that is returned from the Rackspace Public Cloud request"""
+		
+		"""
+		Gets the catalog that is returned from the Rackspace Public Cloud request
+		"""
+		
 		self.catalogs = self.csjson['access']['serviceCatalog']
 
-	## creates the images for the cloud server account
+	def servers(self):
+
+		"""
+		Gets the list of servers
+		"""
+
+		headers = {'X-Auth-Token': self.auth_token, 'content-type': 'application/json'}
+
+		# Gather list of images
+		r = requests.get(self.dfw_url + '/servers/detail', headers=headers)
+
+		servers = {}
+
+		for server in r.json['servers']:
+			
+
 	def images(self):
-		""" Gets the images from the JSON that was returned"""
+		
+		"""
+		Gets the images from the JSON that was returned
+		"""
+		
 		# create the auth headers to talk to dfw cloud servers for account
 		headers = {'X-Auth-Token': self.auth_token, 'content-type': 'application/json'}
 
@@ -69,10 +104,13 @@ class CloudServer():
 		# print json.dumps(images, sort_keys=True, indent=2)
 		self.images = images
 
-	## populates the cloud server
 	def flavors(self):
-		""" Gets the flavors from the JSON that was returned by Rackspace Public Cloud"""
-		## Gather a list of flavors
+		
+		"""
+		Gets the flavors from the JSON that was returned by Rackspace Public Cloud
+		"""
+
+		# Gather a list of flavors
 		r = requests.get(dfw_url + '/flavors', headers=dfw_headers)
 		
 		flavors = {}
@@ -85,7 +123,11 @@ class CloudServer():
 		self.flavors = flavors
 
 	def gen_server_urls(self):
-		""" Gets the server urls for talking to the API for the account"""
+		
+		"""
+		Gets the server urls for talking to the API for the account
+		"""
+		
 		for catalog in self.catalogs:
 			for endpoint in catalog['endpoints']:
 				if('servers' in endpoint.get('publicURL')) and ('2' in endpoint.get('versionId')):
