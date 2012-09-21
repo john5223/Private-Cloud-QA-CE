@@ -47,21 +47,22 @@ urls = cloudaccount.urls(account_info['catalogs'])
 
 servers = cloudaccount.servers(urls[results.dc], account_info['authtoken'])
 
-print json.dumps(servers, indent=2)
+#print json.dumps(servers, indent=2)
 
 to_delete_servers = []
 for server in servers:
-	print results.server_name
-	print server
+	#print results.server_name
+	#print server
 	if results.server_name in server:
-		print "MATCH"
+		#print "MATCH"
 		to_delete_servers.append(servers[server]['id'])
 
-print to_delete_servers
+#print to_delete_servers
 
 # Run delete servers
 deleted_servers = cloudservers.delete_servers(account_info['authtoken'], urls[results.dc], to_delete_servers)
 
+print "The results of delete servers : "
 print deleted_servers
 
 print "!!## -- Finsihed Tearing Down Virtualized Infrastructure -- ##!!"

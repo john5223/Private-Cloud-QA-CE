@@ -102,21 +102,17 @@ build_info = {'account_num' : account_info['account'],
 			  'server_name' : results.server_name
 			  }
 
-#check the current directory
-curr_dir = subprocess.call('pwd')
-#print curr_dir
-
 # Write build_info as a json file
 try:
 	# Open the file
-	fo = open("%s.json" % (results.username), "w")
+	fo = open("%s-build.json" % (results.username), "w")
 except IOError:
-	print "Failed to open file %s.json" % (results.username)
+	print "Failed to open file %s-build.json" % (results.username)
 else:
 	# Write the json string
 	fo.write(json.dumps(build_info, indent=2))
 	#clost the file
 	fo.close()
-	print "!! %s.json file write successful!!" % (results.username)
+	print "!! %s.json file write successful to directory %s" % (results.username, subprocess.call('pwd'))
 
 # End Script
