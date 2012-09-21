@@ -108,15 +108,15 @@ def servers(url, authtoken):
 
 	servers = {}
 	for server in r.json['servers']:
-		name = json.dumps(server['name'])
-		serverid = json.dumps(server['id'])
+		name = server['name']
+		serverid = server['id']
 		private_ip = ''
 		public_ip = ''
 		
 		i = len(server['addresses']['private']) - 1
 		while(i >= 0):
 			if server['addresses']['private'][i]['version'] == 4:
-				private_ip = json.dumps(server['addresses']['private'][i]['addr'])
+				private_ip = server['addresses']['private'][i]['addr']
 				break
 			else:
 				i = i - 1
@@ -124,7 +124,7 @@ def servers(url, authtoken):
 		i = len(server['addresses']['public']) - 1
 		while(i >= 0):
 			if server['addresses']['public'][i]['version'] == 4:
-				public_ip = json.dumps(server['addresses']['public'][i]['addr'])
+				public_ip = server['addresses']['public'][i]['addr']
 				break
 			else:
 				i = i - 1

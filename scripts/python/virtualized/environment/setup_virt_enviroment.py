@@ -41,12 +41,18 @@ else:
 
 curr_servers = cloudaccount.servers(account_info['urls']['dfw'], account_info['authtoken'])
 
-# Find the public and private ips of the newly built servers
-for new_server in account_info['newly_built_servers']:
+# Find the public and private ips of the new servers
+for new_server in account_info['new_servers']:
 	for curr_server in curr_servers:
 		if new_server['server']['id'] in curr_servers[curr_server]['id']:
-			print ("name : %s,  public_ip : %s, private_ip: %s" 
-				  % (curr_server,curr_servers[curr_server]['public_ip'], curr_servers[curr_server]['private_ip']))
+			name = curr_server
+			admin_user = "admin"
+			admin_pass = new_server['server']['adminPass']
+			public_ip = curr_servers[curr_server]['public_ip']
+			private_ip = curr_servers[curr_server]['private_ip']
+			print ("name : %s,  adminUser : %s, adminPass : %s, public_ip : %s, private_ip: %s" 
+				  % (name, admin_user, admin_pass, public_ip, private_ip))
 
 # Need to either save these into enviroment variables and use jenkins to ssh into the boxes and set up
 # chef, or do it here in the script via a module
+

@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 """
 	Builds servers for an account in RS Public Cloud and saves Account Info in current directory
 """
@@ -9,7 +8,7 @@ import subprocess
 import json
 import argparse
 import cloudaccount
-import buildservers
+import cloudservers
 
 # Gather the argumetn from the command line
 parser = argparse.ArgumentParser()
@@ -60,25 +59,29 @@ except OSError:
 
 # Create the account info
 account_info = cloudaccount.generate_account_info(results.username, results.apikey)
-print "Account # : %s" % (account_info['account'])
-print "authtoken : %s" % (account_info['authtoken'])
-print json.dumps(account_info['catalogs'], sort_keys=True, indent=2)
+
+# print debugging
+#print "Account # : %s" % (account_info['account'])
+#print "authtoken : %s" % (account_info['authtoken'])
+#print json.dumps(account_info['catalogs'], sort_keys=True, indent=2)
 
 # Create a dict of the URLS for the API for the account
 urls = cloudaccount.urls(account_info['catalogs'])
-print "DFW URL : " + urls['dfw']
-print "ORD URL : " + urls['ord']
+
+# print debugging
+#print "DFW URL : " + urls['dfw']
+#print "ORD URL : " + urls['ord']
 
 # Create a dict of the flavors for the account
 flavors = cloudaccount.flavors(urls[results.dc], account_info['authtoken'])
-print json.dumps(flavors, sort_keys=True, indent=2)
+#print json.dumps(flavors, sort_keys=True, indent=2)
 
 # Create a dict of the images for the account
 images = cloudaccount.images(urls[results.dc], account_info['authtoken'])
-print json.dumps(images, sort_keys=True, indent=2)
+#print json.dumps(images, sort_keys=True, indent=2)
 
 # Build the servers
-new_servers = buildservers.buildservers(account_info['authtoken'], 
+new_servers = cloudservers.build_servers(account_info['authtoken'], 
 									   urls['dfw'], 
 									   results.server_name, 
 									   results.num_servers,
@@ -89,21 +92,19 @@ new_servers = buildservers.buildservers(account_info['authtoken'],
 									   )
 
 # Print the created servers (DEBUG)
-for server in new_servers:
-	print json.dumps(server, indent=2)
+#for server in new_servers:
+#	print json.dumps(server, indent=2)
 
 build_info = {'account_num' : account_info['account'],
 			  'authtoken' : account_info['authtoken'],
 			  'urls' : urls,
-			  'flavors' : flavors, 
-			  'images' : images,
-			  'newly_built_servers' : new_servers,
+			  'new_servers' : new_servers,
 			  'server_name' : results.server_name
 			  }
 
 #check the current directory
 curr_dir = subprocess.call('pwd')
-print curr_dir
+#print curr_dir
 
 # Write build_info as a json file
 try:
