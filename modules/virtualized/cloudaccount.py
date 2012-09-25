@@ -12,15 +12,19 @@ def generate_account_info(username, apikey):
 				{"username": username, "apiKey": apikey} 
 			} 
 		}
-	## headers to send to the cloud servers auth
+	# headers to send to the cloud servers auth
 	headers = {'content-type': 'application/json'}
 
-	## send auth request
+	# send auth request
 	r = requests.post('https://auth.api.rackspacecloud.com/v2.0/tokens', data=json.dumps(payload), headers=headers)
 
-	account = r.json['access']['token']['tenant']['id']
-	authtoken = r.json['access']['token']['id']
-	catalogs = r.json['access']['serviceCatalog']
+	# Save content in a json
+	content = json.loads(r.content)
+	
+	# Save returned information
+	account = content['access']['token']['tenant']['id']
+	authtoken = content['access']['token']['id']
+	catalogs = content['access']['serviceCatalog']
 
 	# Create a dict to return
 	account_info = {"authtoken" : authtoken, "account" : account, "catalogs" : catalogs}

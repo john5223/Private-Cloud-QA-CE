@@ -2,7 +2,6 @@
 """
 	Builds servers for an account in RS Public Cloud and saves Account Info in current directory
 """
-
 import os
 import subprocess
 import json
@@ -61,9 +60,9 @@ except OSError:
 account_info = cloudaccount.generate_account_info(results.username, results.apikey)
 
 # print debugging
-#print "Account # : %s" % (account_info['account'])
-#print "authtoken : %s" % (account_info['authtoken'])
-#print json.dumps(account_info['catalogs'], sort_keys=True, indent=2)
+print "Account # : %s" % (account_info['account'])
+print "authtoken : %s" % (account_info['authtoken'])
+print json.dumps(account_info['catalogs'], sort_keys=True, indent=2)
 
 # Create a dict of the URLS for the API for the account
 urls = cloudaccount.urls(account_info['catalogs'])
@@ -80,6 +79,7 @@ flavors = cloudaccount.flavors(urls[results.dc], account_info['authtoken'])
 images = cloudaccount.images(urls[results.dc], account_info['authtoken'])
 #print json.dumps(images, sort_keys=True, indent=2)
 
+"""
 # Build the servers
 new_servers = cloudservers.build_servers(account_info['authtoken'], 
 									   urls['dfw'], 
@@ -114,5 +114,5 @@ else:
 	#clost the file
 	fo.close()
 	print "!! %s.json file write successful to directory %s" % (results.username, subprocess.call('pwd'))
-
+"""
 # End Script

@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import os
 import json
 import subprocess
@@ -45,9 +47,8 @@ account_info = cloudaccount.generate_account_info(results.username, results.apik
 # Create a dict of the URLS for the API for the account
 urls = cloudaccount.urls(account_info['catalogs'])
 
+## Gather the current servers
 servers = cloudaccount.servers(urls[results.dc], account_info['authtoken'])
-
-#print json.dumps(servers, indent=2)
 
 to_delete_servers = []
 for server in servers:
