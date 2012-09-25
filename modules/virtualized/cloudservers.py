@@ -45,7 +45,8 @@ def build_server(authtoken, url, name, osimageref, osimagename,  projectname, fl
 	headers = {'X-Auth-Token': authtoken, 'content-type': 'application/json', 'X-Auth-Project-Id' : projectname}
 	r = requests.post(url + '/servers', data=json.dumps(data), headers=headers)
 
-	return r.json
+	content = json.loads(r.content)
+	return content
 
 def delete_servers(authtoken, url, serverids):
 	"""
