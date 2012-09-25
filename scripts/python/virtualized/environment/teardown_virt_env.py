@@ -7,6 +7,9 @@ import cloudservers
 import cloudaccount
 import argparse
 
+#Star the script
+print "!!## -- Begin Tearing Down Virtualized Infrastructure -- ##!!"
+
 # Gather the argumetn from the command line
 parser = argparse.ArgumentParser()
 
@@ -52,18 +55,14 @@ servers = cloudaccount.servers(urls[results.dc], account_info['authtoken'])
 
 to_delete_servers = []
 for server in servers:
-	#print results.server_name
-	#print server
 	if results.server_name in server:
-		#print "MATCH"
 		to_delete_servers.append(servers[server]['id'])
-
-#print to_delete_servers
 
 # Run delete servers
 deleted_servers = cloudservers.delete_servers(account_info['authtoken'], urls[results.dc], to_delete_servers)
 
+# Print the result of delete_servers
 print "The results of delete servers : "
 print deleted_servers
 
-print "!!## -- Finsihed Tearing Down Virtualized Infrastructure -- ##!!"
+print "!!## -- Finished Tearing Down Virtualized Infrastructure -- ##!!"

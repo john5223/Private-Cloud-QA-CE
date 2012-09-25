@@ -4,11 +4,14 @@ import json
 import argparse
 import subprocess
 import cloudaccount
+import cloudservers
 
 """
 	This script will setup each one of the servers to run
 	chef against our chef server as a client
 """
+
+print "!!##-- Begin setup of cloud server enviroment --##!!"
 
 # Gather the arguments from the command line
 parser = argparse.ArgumentParser()
@@ -38,12 +41,20 @@ else:
 	# Write the json string
 	server_info = json.loads(fo.read())
 
-	#print "account_info : %s" % json.dumps(account_info, indent=2)
-
 	#close the file
 	fo.close()
 
 	# print message for debugging
 	print "%s-server-info.json successfully read into account_info" % (results.username)
 
-print server_info
+# Loop through the json determining which server will be the controller and which will be the compute
+for server in server_info:
+	if '0' in server:
+		server_info[server]['role'] = 'All-In-One'
+	else:
+		server_info[server]['role'] = 'Compute'
+
+print json.dumps(server_info, indent=2)
+
+
+print "!!##-- End setup of cloud server enviroment --##!!"

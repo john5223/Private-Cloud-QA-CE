@@ -34,8 +34,6 @@ else:
 	# Write the json string
 	account_info = json.loads(fo.read())
 
-	#print "account_info : %s" % json.dumps(account_info, indent=2)
-
 	#close the file
 	fo.close()
 
@@ -46,7 +44,6 @@ curr_servers = cloudaccount.servers(account_info['urls']['dfw'], account_info['a
 
 # Loop through the new servers and the current runnins server to gather needed info to setup
 servers = {}
-# Find the public and private ips of the new servers
 for new_server in account_info['new_servers']:
 	for curr_server in curr_servers:
 		if new_server['server']['id'] in curr_servers[curr_server]['id']:
@@ -65,9 +62,6 @@ for new_server in account_info['new_servers']:
 
 # Print the json of server info
 print json.dumps(servers, sort_keys=True, indent=2)
-
-# Need to either save these into enviroment variables and use jenkins to ssh into the boxes and set up
-# chef, or do it here in the script via a module
 
 # Write build_info as a json file
 try:

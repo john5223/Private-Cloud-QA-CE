@@ -59,25 +59,14 @@ except OSError:
 # Create the account info
 account_info = cloudaccount.generate_account_info(results.username, results.apikey)
 
-# print debugging
-#print "Account # : %s" % (account_info['account'])
-#print "authtoken : %s" % (account_info['authtoken'])
-#print json.dumps(account_info['catalogs'], sort_keys=True, indent=2)
-
 # Create a dict of the URLS for the API for the account
 urls = cloudaccount.urls(account_info['catalogs'])
 
-# print debugging
-#print "DFW URL : " + urls['dfw']
-#print "ORD URL : " + urls['ord']
-
 # Create a dict of the flavors for the account
 flavors = cloudaccount.flavors(urls[results.dc], account_info['authtoken'])
-#print json.dumps(flavors, sort_keys=True, indent=2)
 
 # Create a dict of the images for the account
 images = cloudaccount.images(urls[results.dc], account_info['authtoken'])
-#print json.dumps(images, sort_keys=True, indent=2)
 
 # Build the servers
 new_servers = cloudservers.build_servers(account_info['authtoken'], 
@@ -110,7 +99,10 @@ except IOError:
 else:
 	# Write the json string
 	fo.write(json.dumps(build_info, indent=2))
-	#clost the file
+	
+	#close the file
 	fo.close()
+	
+	# print out successfull write text
 	print "!! %s.json file write successful to directory %s" % (results.username, subprocess.call('pwd'))
 # End Script

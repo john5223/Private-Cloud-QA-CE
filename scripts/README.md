@@ -18,4 +18,4 @@ python Documents/git/Private-Cloud-QA-CE/scripts/python/virtualized/environment/
 
 # Tear Down Enviroment
 
-python Documents/git/Private-Cloud-QA-CE/scripts/python/virtualized/environment/teardown_virt_env.py --username privateclouddevs --apikey 0e688a460988337e0e759524a2ccfc33 --name "Jacob Virt Test" --dc dfw
+python Documents/git/Private-Cloud-QA-CE/scripts/python/virtualized/environment/teardown_virt_env.py --username privateclouddevs --apikey 0e688a460988337e0e759524a2ccfc33 --name "Alamo Virt Test" --dc dfw
