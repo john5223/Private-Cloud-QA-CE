@@ -54,7 +54,7 @@ for server in server_info:
 	else:
 		server_info[server]['role'] = 'Compute'
 
-print json.dumps(server_info, indent=2)
+print json.dumps(server_info, sort_keys=True, indent=2)
 
 
 print "!!##-- End setup of cloud server enviroment --##!!"
