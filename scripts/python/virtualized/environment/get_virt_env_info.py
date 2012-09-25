@@ -6,7 +6,7 @@ import argparse
 import subprocess
 import cloudaccount
 
-# Gather the argumetn from the command line
+# Gather the arguments from the command line
 parser = argparse.ArgumentParser()
 
 # Get the username for the Rackspace Public Cloud Account
