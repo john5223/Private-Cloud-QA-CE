@@ -9,8 +9,8 @@ import cloudservers
 """
 	This script will setup each one of the servers to run the Alamo ISO without actually running the ISO.
 	It will need to assign a role to each machine, then from that role gather information about the server
-	from the server. Once all the needed info is gathered it will run a subscript that will configure the server
-	to run the alamo post-install.sh
+	from the server. Once all the needed info is gathered, we will need to write a config file for each of the
+	nodes based on roles via a template
 """
 
 print "!!##-- Begin setup of cloud server enviroment --##!!"
@@ -21,6 +21,15 @@ parser = argparse.ArgumentParser()
 # Get the username for the Rackspace Public Cloud Account
 parser.add_argument('--username', action="store", dest="username", 
 					help="User name for the account")
+
+parser.add_argument('--adminpass', action="store", dest= "adminpass",
+					help="Password for the Verizon Dashboard admin user")
+
+parser.add_argument('--osusername', action="store", dest= "osusername",
+					help="Username for normal OpenStack user")
+
+parser.add_argument('--osuserpass', action="store", dest= "osuserpass",
+					help="Password for the normal OpenStack User")
 
 # Save the parameters
 results = parser.parse_args()
@@ -56,7 +65,10 @@ for server in server_info:
 	else:
 		server_info[server]['role'] = 'Compute'
 
-print json.dumps(server_info, sort_keys=True, indent=2)
+	server_info[server]['os_admin_passwd'] = results.adminpass
+	server_info[server]['os_user_name'] = results.osusername
+	server_info[server]['os_user_passwd'] = results.osuserpass
 
+print json.dumps(server_info, sort_keys=True, indent=2)
 
 print "!!##-- End setup of cloud server enviroment --##!!"
