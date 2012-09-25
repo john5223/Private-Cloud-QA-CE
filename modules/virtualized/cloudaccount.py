@@ -123,6 +123,7 @@ def servers(url, authtoken):
 	for server in content['servers']:
 		name = server['name']
 		serverid = server['id']
+		status = server['status']
 		private_ip = ''
 		public_ip = ''
 		
@@ -144,6 +145,7 @@ def servers(url, authtoken):
 
 		servers[name] = {'id': serverid, 
 						 'public_ip' : public_ip,
-						 'private_ip' : private_ip
+						 'private_ip' : private_ip,
+						 'status' : status
 						 }
 	return servers

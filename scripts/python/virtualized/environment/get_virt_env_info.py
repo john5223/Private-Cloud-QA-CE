@@ -55,10 +55,12 @@ for new_server in account_info['new_servers']:
 			admin_pass = new_server['server']['adminPass']
 			public_ip = curr_servers[curr_server]['public_ip']
 			private_ip = curr_servers[curr_server]['private_ip']
+			status = curr_servers[curr_server]['status']
 			servers[name] = {'user' : admin_user,
 					  		 'admin_pass' : admin_pass,
 					  		 'public_ip' : public_ip,
-					  		 'private_ip' : private_ip
+					  		 'private_ip' : private_ip,
+					  		 'status' : status
 					  		 }
 
 #print json.dumps(servers, sort_keys=True, indent=2)
