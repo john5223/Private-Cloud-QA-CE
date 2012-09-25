@@ -20,8 +20,8 @@ def build_server(authtoken, url, name, osimageref, osimagename,  projectname, fl
 		Builds a new server on the account using the api for the give url
 	"""
 	# print for debugging
-	print ("name : %s, url : %s, osimageref : %s, osimagename: %s, project : %s, flavor : %s" 
-		   % (name, url, osimageref, osimagename, projectname, flavor))
+	#print ("name : %s, url : %s, osimageref : %s, osimagename: %s, project : %s, flavor : %s" 
+	#	   % (name, url, osimageref, osimagename, projectname, flavor))
 
 	# build json to submit
 	build = {
@@ -36,9 +36,6 @@ def build_server(authtoken, url, name, osimageref, osimagename,  projectname, fl
 				}
 			}
 		}
-
-	# print for debugging
-	print json.dumps(build, indent=2)
 
 	# submit call to public cloud api to build server
 	data = build

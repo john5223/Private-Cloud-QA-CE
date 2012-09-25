@@ -60,9 +60,9 @@ except OSError:
 account_info = cloudaccount.generate_account_info(results.username, results.apikey)
 
 # print debugging
-print "Account # : %s" % (account_info['account'])
-print "authtoken : %s" % (account_info['authtoken'])
-print json.dumps(account_info['catalogs'], sort_keys=True, indent=2)
+#print "Account # : %s" % (account_info['account'])
+#print "authtoken : %s" % (account_info['authtoken'])
+#print json.dumps(account_info['catalogs'], sort_keys=True, indent=2)
 
 # Create a dict of the URLS for the API for the account
 urls = cloudaccount.urls(account_info['catalogs'])
@@ -91,8 +91,8 @@ new_servers = cloudservers.build_servers(account_info['authtoken'],
 									   )
 
 # Print the created servers (DEBUG)
-#for server in new_servers:
-#	print json.dumps(server, indent=2)
+for server in new_servers:
+	print json.dumps(server, indent=2)
 
 build_info = {'account_num' : account_info['account'],
 			  'authtoken' : account_info['authtoken'],

@@ -63,7 +63,8 @@ for new_server in account_info['new_servers']:
 					  		 'status' : status
 					  		 }
 
-#print json.dumps(servers, sort_keys=True, indent=2)
+# Print the json of server info
+print json.dumps(servers, sort_keys=True, indent=2)
 
 # Need to either save these into enviroment variables and use jenkins to ssh into the boxes and set up
 # chef, or do it here in the script via a module
