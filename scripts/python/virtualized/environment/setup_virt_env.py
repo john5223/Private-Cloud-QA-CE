@@ -7,8 +7,10 @@ import cloudaccount
 import cloudservers
 
 """
-	This script will setup each one of the servers to run
-	chef against our chef server as a client
+	This script will setup each one of the servers to run the Alamo ISO without actually running the ISO.
+	It will need to assign a role to each machine, then from that role gather information about the server
+	from the server. Once all the needed info is gathered it will run a subscript that will configure the server
+	to run the alamo post-install.sh
 """
 
 print "!!##-- Begin setup of cloud server enviroment --##!!"

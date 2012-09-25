@@ -1,4 +1,7 @@
 #!/usr/bin/python
+"""
+	Gather information about the servers
+"""
 
 import os
 import json
@@ -48,7 +51,7 @@ for new_server in account_info['new_servers']:
 	for curr_server in curr_servers:
 		if new_server['server']['id'] in curr_servers[curr_server]['id']:
 			name = curr_server
-			admin_user = 'admin'
+			admin_user = 'root'
 			admin_pass = new_server['server']['adminPass']
 			public_ip = curr_servers[curr_server]['public_ip']
 			private_ip = curr_servers[curr_server]['private_ip']

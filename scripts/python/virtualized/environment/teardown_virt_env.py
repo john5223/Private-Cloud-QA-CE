@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 import os
 import json
 import subprocess
@@ -7,6 +6,9 @@ import cloudservers
 import cloudaccount
 import argparse
 
+"""
+	This script will teardown the Cloud Servers environment that we set up via previous scripts
+"""
 #Star the script
 print "!!## -- Begin Tearing Down Virtualized Infrastructure -- ##!!"
 
