@@ -79,7 +79,6 @@ flavors = cloudaccount.flavors(urls[results.dc], account_info['authtoken'])
 images = cloudaccount.images(urls[results.dc], account_info['authtoken'])
 #print json.dumps(images, sort_keys=True, indent=2)
 
-"""
 # Build the servers
 new_servers = cloudservers.build_servers(account_info['authtoken'], 
 									   urls['dfw'], 
@@ -114,5 +113,4 @@ else:
 	#clost the file
 	fo.close()
 	print "!! %s.json file write successful to directory %s" % (results.username, subprocess.call('pwd'))
-"""
 # End Script
