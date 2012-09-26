@@ -47,7 +47,7 @@ parser.add_argument('-net_dmz', action="store", dest="net_dmz",
 
 # Get the gateway for the DMZ
 parser.add_argument('-net_dmz_gateway', action="store", dest="net_dmz_gateway", 
-					default="", default="", help="Gateway for the DMZ")
+					default="", help="Gateway for the DMZ")
 
 # Get the name of the Nova Fixed Bridge Interface
 parser.add_argument('-net_bridge', action="store", dest="net_bridge", 
