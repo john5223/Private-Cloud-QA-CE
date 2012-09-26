@@ -71,16 +71,14 @@ print json.dumps(flavors, indent=2)
 servers = novaaccount.servers(urls['nova'], account_info['authtoken'])
 print json.dumps(servers, indent=2)
 
-"""
 new_servers = novaservers.build_servers(account_info['authtoken'],
 									  urls['nova'],
 									  results.server_name,
-									  results.number,
+									  results.num_servers,
 									  images[results.os_image],
 									  results.os_image,
 									  results.tenant_id,
-									  flavors[results.flavor])
+									  flavors[results.server_flavor])
 
 # print debugging
 print json.dumps(new_servers, indent=2)
-"""

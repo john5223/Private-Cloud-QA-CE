@@ -2,13 +2,13 @@
 import json
 import requests
 
-def generate_account_info(url, username, password, tenantname):
+def generate_account_info(url, username, password, tenantid):
 	"""
 		Generates a auth token, account number, and catalog info for the cloud account
 	"""
 
 	payload = {"auth":
-			{"tenantName": tenantname,
+			{"tenantName": tenantid,
 			 "passwordCredentials": {"username": username, "password": password}
 			}
 		}
@@ -21,14 +21,18 @@ def generate_account_info(url, username, password, tenantname):
 	# Load the returned content into a json object
 	content = json.loads(r.content)
 	
-	# Save returned information
-	account = content['access']['token']['tenant']['id']
-	authtoken = content['access']['token']['id']
-	catalogs = content['access']['serviceCatalog']
+	# check the return content and return proper info
+	if r.status_code == 200:
+		# Save returned information
+		account = content['access']['token']['tenant']['id']
+		authtoken = content['access']['token']['id']
+		catalogs = content['access']['serviceCatalog']
 
-	# Create a dict to return
-	account_info = {"authtoken" : authtoken, "account" : account, "catalogs" : catalogs}
-	return account_info
+		# Create a dict to return
+		account_info = {"authtoken" : authtoken, "account" : account, "catalogs" : catalogs}
+		return account_info
+	else:
+		print "Error : " + content['error']['message'] 
 
 def test_auth_token(authtoken):
 	""" 
