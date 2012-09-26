@@ -77,17 +77,24 @@ try:
 except OSError:
 	print "No Such Directory : %s" % (workspace_dir)
 
-print results.role
-print results.net_public_iface
-print results.net_private_iface
-print results.net_con_ip
-print results.net_mgmt
-print results.net_nova
-print results.net_public
-print results.net_fixed
-print results.net_dmz
-print results.net_dmz_gateway
-print results.net_bridge
-print results.os_admin_passwd
-print results.os_user_name
-print results.os_user_passwd
+
+server_config = {
+	'role' : results.role,
+	'net_public_iface' : results.net_public_iface,
+	'net_private_iface' : results.net_private_iface,
+	'net_con_ip' : results.net_con_ip,
+	'net_mgmt' : results.net_mgmt,
+	'net_nova' : results.net_nova,
+	'net_public' : results.net_public,
+	'net_fixed' : results.net_fixed,
+	'net_dmz' : results.net_dmz,
+	'net_dmz_gateway' : results.net_dmz_gateway,
+	'net_bridge' : results.net_bridge,
+	'os_admin_passwd' : results.os_admin_passwd,
+	'os_user_name' : results.os_user_name,
+	'os_user_passwd' : results.os_user_passwd
+}
+
+# Print debug
+
+print json.dumps(server_config, indent=2) 
