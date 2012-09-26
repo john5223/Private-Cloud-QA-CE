@@ -3,6 +3,8 @@ import os
 import subprocess
 import json
 import argparse
+import novaaccount
+import novaservers
 
 print "Start Build All-In-One"
 
@@ -77,7 +79,7 @@ try:
 except OSError:
 	print "No Such Directory : %s" % (workspace_dir)
 
-
+## convert the passed parameters to a json for easy consumption and file writing
 server_config = {
 	'role' : results.role,
 	'net_public_iface' : results.net_public_iface,
@@ -94,7 +96,53 @@ server_config = {
 	'os_user_name' : results.os_user_name,
 	'os_user_passwd' : results.os_user_passwd
 }
-
 # Print debug
+print json.dumps(server_config, indent=2)
 
-print json.dumps(server_config, indent=2) 
+## Build a Ubuntu 12.04 Server on our All-In-One box
+
+# Authenticate against our Alamo Install
+
+# These variables will become jenkins variables
+url = "http://198.101.133.84:35357"
+username = 'admin'
+password = 'admin'
+tenantid = 'admin'
+
+# Gather Auth info
+account_info = novaaccount.generate_account_info(url, username, password, tenantid)
+print "Authtoken : " + account_info['authtoken']
+print "Account / Tenant : " + account_info['account']
+#print json.dumps(account_info, indent=2)
+
+# Gather URL endpoints
+urls = novaaccount.urls(account_info['catalogs'])
+print json.dumps(urls, indent=2)
+
+# Gather available images
+images = novaaccount.images(urls['nova'], account_info['authtoken'])
+print json.dumps(images, indent=2)
+
+# Gather available flavors
+flavors = novaaccount.flavors(urls['nova'], account_info['authtoken'])
+print json.dumps(flavors, indent=2)
+
+# Gather running servers
+servers = novaaccount.servers(urls['nova'], account_info['authtoken'])
+print json.dumps(servers, indent=2)
+
+"""
+new_servers = novaservers.build_servers(account_info['authtoken'], 
+									    urls['nova'], 
+									    "Alamo Test All-In-One", 
+									    1,
+									    images['cirros-image'], 
+									    "Cirros", 
+									    "Alamo Tests", 
+									    flavors['m1.tiny']
+									   )
+## Build the config file to pass to the newly built Ubuntu 12.04 Server
+print json.dumps(new_servers, indent=2)
+"""
+
+## Tell the Ubuntu Server to run post-install.sh
