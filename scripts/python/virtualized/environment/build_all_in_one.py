@@ -77,4 +77,17 @@ try:
 except OSError:
 	print "No Such Directory : %s" % (workspace_dir)
 
-print results
+print results.role
+print results.net_public_iface
+print results.net_private_iface
+print results.net_con_ip
+print results.net_mgmt
+print results.net_nova
+print results.net_public
+print results.net_fixed
+print results.net_dmz
+print results.net_dmz_gateway
+print results.net_bridge
+print results.os_admin_passwd
+print results.os_user_name
+print results.os_user_passwd
