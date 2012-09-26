@@ -72,3 +72,9 @@ for server in server_info:
 print json.dumps(server_info, sort_keys=True, indent=2)
 
 print "!!##-- End setup of cloud server enviroment --##!!"
+
+"""
+Shell command to get ethernet interfaces
+
+for i in `ip link sh | grep -P '^[0-9]: ' | sed 's/://g' | awk '{print $2}' | xargs`; do if [ `ip addr sh $i | grep '198.61.203.82' | wc -l` -gt 0 ]; then echo $i; fi; done
+"""
