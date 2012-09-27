@@ -89,7 +89,7 @@ def add_personality(path, filename):
 		# Open the file
 		fo = open(filename, "r")
 	except IOError:
-		print "Failed to open file %s-build.json" % (results.username)
+		print "Failed to open file %s" % (filename)
 	else:
 		fo_contents = fo.read()
 		fo_contents_64 = base64.b64encode(fo_contents)
