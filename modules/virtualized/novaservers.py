@@ -3,19 +3,21 @@ import requests
 
 """ Module to build and delete servers in Nova """
 
-def build_servers(authtoken, url, name, numservers, osimageref, osimagename, projectname, flavor):
+def build_servers(authtoken, url, name, numservers, osimageref, osimagename, projectname, flavor, keyname=none):
 	"""Creates numservers amount of servers and returns the list of created servers"""
-	print ("authtoken: %s, url : %s, name : %s, numservers : %s, osimageref : %s, osimagename %s, projectname : %s, flavor : %s" 
-		   % (authtoken, url, name, numservers, osimageref, osimagename, projectname, flavor))
+	print ("authtoken: %s, url : %s, name : %s, numservers : %s, osimageref : %s, osimagename %s, projectname : %s, flavor : %s, key-name : %s" % (authtoken, url, name, numservers, osimageref, osimagename, projectname, flavor, keyname))
 
 	servers = []
 	for i in range(int(numservers)):
-		server = build_server(authtoken, url, name + ' ' + str(i), osimageref, osimagename, projectname, flavor)
-		servers.append(server)
-
+		if keyname is not none
+			server = build_server(authtoken, url, name + ' ' + str(i), osimageref, osimagename, projectname, flavor)
+			servers.append(server)
+		else:
+			server = build_server(authtoken, url, name + ' ' + str(i), osimageref, osimagename, projectname, flavor, keyname)
+			servers.append(server)
 	return servers
 
-def build_server(authtoken, url, name, osimageref, osimagename,  projectname, flavor):
+def build_server(authtoken, url, name, osimageref, osimagename,  projectname, flavor, keyname=none):
 	"""Builds a new server on the account using the api for the give url"""
 
 	# build json to submit
@@ -29,7 +31,8 @@ def build_server(authtoken, url, name, osimageref, osimagename,  projectname, fl
 				{
 					"My Server Name" : osimagename
 				}
-			}
+			},
+			"key-name" : keyname
 		}
 
 	# submit call to public cloud api to build server

@@ -44,6 +44,10 @@ parser.add_argument('--os_image', action="store", dest="os_image",
 parser.add_argument('--server_flavor', action="store", dest="server_flavor", 
 					help="Flavor of Server to use ( in MB, GB, etc.).")
 
+# Get the flavor that the server will use
+parser.add_argument('--key_name', action="store", dest="key_name", 
+					help="Key to generate server with")
+
 # Parse the parameters
 results = parser.parse_args()
 
@@ -102,7 +106,8 @@ new_servers = novaservers.build_servers(account_info['authtoken'],
 										images[results.os_image],
 										results.os_image,
 										results.tenant_id,
-										flavors[results.server_flavor])
+										flavors[results.server_flavor],
+										results.key_name)
 
 # print debugging
 #print json.dumps(new_servers, indent=2)
