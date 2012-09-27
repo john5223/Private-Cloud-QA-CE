@@ -47,7 +47,17 @@ parser.add_argument('--server_flavor', action="store", dest="server_flavor",
 # Parse the parameters
 results = parser.parse_args()
 
-print results
+# Debug printing
+#print results
+
+# Change to the workspace directory, if it doesnt exist, catch the error
+workspace_dir = '/var/lib/jenkins/workspace'
+try:
+	os.chdir(workspace_dir)
+	# Run git command to print current commit hash
+	subprocess.call(['git', 'log', '-1'])
+except OSError:
+	print "No Such Directory : %s" % (workspace_dir)
 
 ## Build a Ubuntu 12.04 Server on our All-In-One box
 # Authenticate against our Alamo Install
@@ -118,6 +128,6 @@ else:
 	fo.close()
 	
 	# print out successfull write text
-	print "!! %s.json file write successful to directory %s" % (results.username, subprocess.call('pwd'))
+	print "!! %s-build.json file write successful to directory %s" % (results.username, subprocess.call('pwd'))
 
 print "!!## -- End Build AIO Nova Environment -- ##!!"
