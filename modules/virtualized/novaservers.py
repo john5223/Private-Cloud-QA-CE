@@ -36,7 +36,7 @@ def build_server(authtoken, url, name, osimageref, osimagename,  projectname, fl
 					"My Server Name" : osimagename
 				}
 			},
-			"key_name" : keyname
+			"key_name" : keyname,
 			"personality" : personalities
 		}
 
