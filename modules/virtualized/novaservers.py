@@ -3,13 +3,13 @@ import requests
 
 """ Module to build and delete servers in Nova """
 
-def build_servers(authtoken, url, name, numservers, osimageref, osimagename, projectname, flavor, keyname=none):
+def build_servers(authtoken, url, name, numservers, osimageref, osimagename, projectname, flavor, keyname=None):
 	"""Creates numservers amount of servers and returns the list of created servers"""
 	print ("authtoken: %s, url : %s, name : %s, numservers : %s, osimageref : %s, osimagename %s, projectname : %s, flavor : %s, key-name : %s" % (authtoken, url, name, numservers, osimageref, osimagename, projectname, flavor, keyname))
 
 	servers = []
 	for i in range(int(numservers)):
-		if keyname is not none
+		if keyname is not None
 			server = build_server(authtoken, url, name + ' ' + str(i), osimageref, osimagename, projectname, flavor)
 			servers.append(server)
 		else:
@@ -17,7 +17,7 @@ def build_servers(authtoken, url, name, numservers, osimageref, osimagename, pro
 			servers.append(server)
 	return servers
 
-def build_server(authtoken, url, name, osimageref, osimagename,  projectname, flavor, keyname=none):
+def build_server(authtoken, url, name, osimageref, osimagename,  projectname, flavor, keyname=None):
 	"""Builds a new server on the account using the api for the give url"""
 
 	# build json to submit
