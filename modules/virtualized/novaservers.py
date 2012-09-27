@@ -9,12 +9,9 @@ def build_servers(authtoken, url, name, numservers, osimageref, osimagename, pro
 
 	servers = []
 	for i in range(int(numservers)):
-		if keyname is not None:
-			server = build_server(authtoken, url, name + ' ' + str(i), osimageref, osimagename, projectname, flavor)
-			servers.append(server)
-		else:
-			server = build_server(authtoken, url, name + ' ' + str(i), osimageref, osimagename, projectname, flavor, keyname)
-			servers.append(server)
+		server = build_server(authtoken, url, name + ' ' + str(i), osimageref, osimagename, projectname, flavor, keyname)
+		servers.append(server)
+	
 	return servers
 
 def build_server(authtoken, url, name, osimageref, osimagename,  projectname, flavor, keyname=None):
