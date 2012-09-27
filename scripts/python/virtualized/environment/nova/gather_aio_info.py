@@ -1,4 +1,9 @@
-#!/user/bin/python
+#!/usr/bin/python
+import os
+import subprocess
+import json
+import argparse
+
 """
 --role $ROLE --net_public_iface $NET_PUBLIC_IFACE --net_private_iface $NET_PRIVATE_IFACE --net_con_ip $NET_CON_IP --net_mgmt $NET_MGMT --net_nova $NET_NOVA --net_public $NET_PUBLIC --net_fixed $NET_FIXED --net_dmz $NET_DMZ --net_dmz_gateway $NET_DMZ_GATEWAY --net_bridge $NET_BRIDGE --os_admin_passwd $OS_ADMIN_PASSWD --os_user_name $OS_USER_NAME --os_user_passwd $OS_USER_PASSWD
 """
