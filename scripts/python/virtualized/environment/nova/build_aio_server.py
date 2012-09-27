@@ -110,7 +110,8 @@ new_servers = novaservers.build_servers(account_info['authtoken'],
 										results.key_name)
 
 # print debugging
-#print json.dumps(new_servers, indent=2)
+print "Created Servers : "
+print json.dumps(new_servers, indent=2)
 
 build_info = {'account_num' : account_info['account'],
 			  'authtoken' : account_info['authtoken'],
