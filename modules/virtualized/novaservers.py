@@ -35,10 +35,10 @@ def build_server(authtoken, url, name, osimageref, osimagename,  projectname, fl
 			"metadata" : 
 				{
 					"My Server Name" : osimagename
-				}
-			},
+				},
 			"key_name" : keyname,
 			"personality" : personalities
+			}
 		}
 
 	# submit call to public cloud api to build server
