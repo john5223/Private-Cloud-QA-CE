@@ -3,18 +3,25 @@ import requests
 
 """ Module to build and delete servers in Nova """
 
-def build_servers(authtoken, url, name, numservers, osimageref, osimagename, projectname, flavor, keyname=None):
+def build_servers(authtoken, url, name, numservers, osimageref, osimagename, projectname, flavor, personalities=None, keyname=None):
 	"""Creates numservers amount of servers and returns the list of created servers"""
-	print ("authtoken: %s, url : %s, name : %s, numservers : %s, osimageref : %s, osimagename %s, projectname : %s, flavor : %s, key-name : %s" % (authtoken, url, name, numservers, osimageref, osimagename, projectname, flavor, keyname))
 
 	servers = []
 	for i in range(int(numservers)):
-		server = build_server(authtoken, url, name + ' ' + str(i), osimageref, osimagename, projectname, flavor, keyname)
+		server = build_server(authtoken,
+							  url,
+							  name + ' ' + str(i),
+							  osimageref,
+							  osimagename, 
+							  projectname,
+							  flavor,
+							  personalities,
+							  keyname)
 		servers.append(server)
 	
 	return servers
 
-def build_server(authtoken, url, name, osimageref, osimagename,  projectname, flavor, keyname=None):
+def build_server(authtoken, url, name, osimageref, osimagename,  projectname, flavor, personalities=None, keyname=None):
 	"""Builds a new server on the account using the api for the give url"""
 
 	# build json to submit
@@ -30,6 +37,7 @@ def build_server(authtoken, url, name, osimageref, osimagename,  projectname, fl
 				}
 			},
 			"key_name" : keyname
+			"personality" : personalities
 		}
 
 	# submit call to public cloud api to build server
@@ -63,3 +71,29 @@ def delete_server(authtoken, url, serverid):
 
 	return r.status_code
 
+def add_personalities(personalities):
+	"""Loops through the passed personalities and adds them to the personalities"""
+	pers = []
+	i = 0
+	for per in personalities:
+		pers[i] = add_personality(per['path'], per['filename'])
+
+	return pers
+
+def add_personality(path, filename):
+	""" Adds the personalities that we want right now, will make this take in parameters later"""
+	per = {}
+	# Write build_info as a json file
+
+	try:
+		# Open the file
+		fo = open(filename, "r")
+	except IOError:
+		print "Failed to open file %s-build.json" % (results.username)
+	else:
+		fo_contents = fo.read()
+		fo_contents_64 = base64.b64encode(fo_contents)
+
+	per['path' : path, 'contents' : fo_contents_64]
+
+	return pers

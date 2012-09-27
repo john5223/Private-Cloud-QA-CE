@@ -98,6 +98,14 @@ servers = novaaccount.servers(urls['nova'], account_info['authtoken'])
 # Print debugging
 print json.dumps(servers, indent=2)
 
+# build the list of personalities to use, this will become parameters (maybe)
+personalities = novaservers.addpersonalities([{'path': '/opt/rpcs/rpcs.conf', 'filename': 'rpcs.conf'},
+											  {'path': '/opt/rpcs/post-install.sh', 'filename': 'post-install.sh'},
+											  {'path': '/opt/rpcs/functions.sh', 'filename': 'functions.sh'}])
+
+print json.dumps(personalities, indent=2)
+
+"""
 # Build the server(s)
 new_servers = novaservers.build_servers(account_info['authtoken'],
 										urls['nova'],
@@ -107,6 +115,7 @@ new_servers = novaservers.build_servers(account_info['authtoken'],
 										results.os_image,
 										results.tenant_id,
 										flavors[results.server_flavor],
+										personalities,
 										results.key_name)
 
 # print debugging
@@ -136,4 +145,5 @@ else:
 	# print out successfull write text
 	print "!! %s-build.json file write successful to directory %s" % (results.username, subprocess.call('pwd'))
 
+"""
 print "!!## -- End Build AIO Nova Environment -- ##!!"
