@@ -32,7 +32,7 @@ def build_server(authtoken, url, name, osimageref, osimagename,  projectname, fl
 					"My Server Name" : osimagename
 				}
 			},
-			"key-name" : keyname
+			"key_name" : keyname
 		}
 
 	# submit call to public cloud api to build server
