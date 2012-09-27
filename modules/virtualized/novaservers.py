@@ -1,5 +1,6 @@
 import json
 import requests
+import base64
 
 """ Module to build and delete servers in Nova """
 
@@ -74,26 +75,27 @@ def delete_server(authtoken, url, serverid):
 def add_personalities(personalities):
 	"""Loops through the passed personalities and adds them to the personalities"""
 	pers = []
-	i = 0
+
+	# Loop through the passed personalities and build the dict that NOVA expects
 	for per in personalities:
-		pers[i] = add_personality(per['path'], per['filename'])
+		pers.append(add_personality(per['path'], per['filename']))
 
 	return pers
 
 def add_personality(path, filename):
 	""" Adds the personalities that we want right now, will make this take in parameters later"""
-	per = {}
-	# Write build_info as a json file
 
+	per = {}
 	try:
 		# Open the file
-		fo = open(filename, "r")
+		fo = open(filename)
 	except IOError:
 		print "Failed to open file %s" % (filename)
 	else:
+		# Open the file and convert its contents to base64
 		fo_contents = fo.read()
 		fo_contents_64 = base64.b64encode(fo_contents)
+		per['path'] = path
+		per['content'] = fo_contents_64
 
-	per['path' : path, 'contents' : fo_contents_64]
-
-	return pers
+	return per
