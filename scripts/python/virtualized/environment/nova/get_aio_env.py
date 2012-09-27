@@ -64,7 +64,7 @@ for new_server in account_info['new_servers']:
 					  		 }
 
 # Print the json of server info (Debug)
-#print json.dumps(servers, sort_keys=True, indent=2)
+print json.dumps(servers, sort_keys=True, indent=2)
 
 # Write build_info as a json file
 try:

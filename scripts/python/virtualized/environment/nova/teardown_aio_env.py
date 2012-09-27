@@ -50,21 +50,21 @@ except OSError:
 account_info = novaaccount.generate_account_info(results.url, results.username, results.password, results.tenant_id)
 
 # Print debugging
-#print "Authtoken : " + account_info['authtoken']
-#print "Account / Tenant : " + account_info['account']
+print "Authtoken : " + account_info['authtoken']
+print "Account / Tenant : " + account_info['account']
 #print json.dumps(account_info, indent=2)
 
 # Gather URL endpoints
 urls = novaaccount.urls(account_info['catalogs'])
 
 # Print debugging
-#print json.dumps(urls, indent=2)
+print json.dumps(urls, indent=2)
 
 # Gather running servers
 servers = novaaccount.servers(urls['nova'], account_info['authtoken'])
 
 # Print debugging
-#print json.dumps(servers, indent=2)
+print json.dumps(servers, indent=2)
 
 to_delete_servers = []
 for server in servers:

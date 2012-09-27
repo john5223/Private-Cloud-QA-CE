@@ -6,11 +6,11 @@ Scripts
  Examples
 
  # Build Cloud Servers
-python scripts/python/virtualized/environment/build_virt_env.py --username privateclouddevs --apikey 0e688a460988337e0e759524a2ccfc33 --number 5 --name "Alamo Virt Test" --project "Alamo Virt Testing" --os "Ubuntu 12.04 LTS (Precise Pangolin)" --flavor 512MB --dc dfw
+python ~/workspace/scripts/python/virtualized/environment/nova/build_aio_server.py --url $URL --username $USERNAME --password $PASSWORD --tenant_id $TENANT_ID --num_servers $NUM_SERVERS --server_name "Alamo AIO Test Server" --os_image $OS_IMAGE --server_flavor $SERVER_FLAVOR
 
 # Gather Cloud Servers Info
 
-python Documents/git/Private-Cloud-QA-CE/scripts/python/virtualized/environment/setup_virt_env.py --username privateclouddevs
+python ~/workspace/scripts/python/virtualized/environment/nova/get_aio_env.py --username alamo
 
 # Setup Enviroment
 
@@ -18,4 +18,4 @@ python Documents/git/Private-Cloud-QA-CE/scripts/python/virtualized/environment/
 
 # Tear Down Enviroment
 
-python Documents/git/Private-Cloud-QA-CE/scripts/python/virtualized/environment/teardown_virt_env.py --username privateclouddevs --apikey 0e688a460988337e0e759524a2ccfc33 --name "Alamo Virt Test" --dc dfw
+python ~/workspace/scripts/python/virtualized/environment/nova/teardown_aio_env.py --url $URL --username $USERNAME --password $PASSWORD --tenant_id $TENANT_ID --server_name "Alamo AIO Test Server"

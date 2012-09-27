@@ -66,8 +66,8 @@ except OSError:
 account_info = novaaccount.generate_account_info(results.url, results.username, results.password, results.tenant_id)
 
 # Print debugging
-#print "Authtoken : " + account_info['authtoken']
-#print "Account / Tenant : " + account_info['account']
+print "Authtoken : " + account_info['authtoken']
+print "Account / Tenant : " + account_info['account']
 #print json.dumps(account_info, indent=2)
 
 # Gather URL endpoints
@@ -80,19 +80,19 @@ urls = novaaccount.urls(account_info['catalogs'])
 images = novaaccount.images(urls['nova'], account_info['authtoken'])
 
 # Print debugging
-#print json.dumps(images, indent=2)
+print json.dumps(images, indent=2)
 
 # Gather available flavors
 flavors = novaaccount.flavors(urls['nova'], account_info['authtoken'])
 
 # Print debugging
-#print json.dumps(flavors, indent=2)
+print json.dumps(flavors, indent=2)
 
 # Gather running servers
 servers = novaaccount.servers(urls['nova'], account_info['authtoken'])
 
 # Print debugging
-#print json.dumps(servers, indent=2)
+print json.dumps(servers, indent=2)
 
 # Build the server(s)
 new_servers = novaservers.build_servers(account_info['authtoken'],
