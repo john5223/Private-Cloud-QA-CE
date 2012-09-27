@@ -2,10 +2,10 @@
 import json
 import requests
 
+""" Module to gather information about an account in NOVA """
+
 def generate_account_info(url, username, password, tenantid):
-	"""
-		Generates a auth token, account number, and catalog info for the cloud account
-	"""
+	"""Generates a auth token, account number, and catalog info for the cloud account"""
 
 	payload = {"auth":
 			{"tenantName": tenantid,
@@ -45,6 +45,7 @@ def test_auth_token(authtoken):
 
 def urls(catalogs):
 	""" Gets the endpoint urls for the cloud account """
+	
 	urls = {}
 	for catalog in catalogs:
 		urls[catalog['name']] = catalog['endpoints'][0]['publicURL']
@@ -52,9 +53,7 @@ def urls(catalogs):
 	return urls
 
 def images(url, authtoken):
-	"""
-		Returns a list of images that the cloud account can use
-	"""
+	"""Returns a list of images that the cloud account can use"""
 
 	# create the auth headers to talk to cloud servers for account
 	headers = {'X-Auth-Token': authtoken, 'content-type': 'application/json'}
@@ -75,10 +74,8 @@ def images(url, authtoken):
 	return images
 
 def flavors(url, authtoken):
-
-	"""
-		Returns a list of flavors that the cloud account can use
-	"""
+	"""Returns a list of flavors that the cloud account can use"""
+	
 	# create the auth headers to talk to cloud servers for account
 	headers = {'X-Auth-Token': authtoken, 'content-type': 'application/json'}
 	
@@ -97,11 +94,8 @@ def flavors(url, authtoken):
 	return flavors
 
 def servers(url, authtoken):
-	"""
-		Returns a list of running servers on the account
-		TODO: implement
-	"""
-	#print "URL : %s, authtoken : %s" % (url, authtoken)
+	"""Returns a list of running servers on the account"""
+	
 	# create the auth headers to talk to cloud servers for account
 	headers = {'X-Auth-Token': authtoken, 'content-type': 'application/json'}
 

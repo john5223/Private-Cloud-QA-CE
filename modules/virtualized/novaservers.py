@@ -1,10 +1,10 @@
 import json
 import requests
 
+""" Module to build and delete servers in Nova """
+
 def build_servers(authtoken, url, name, numservers, osimageref, osimagename, projectname, flavor):
-	"""
-		Creates numservers amount of servers and returns the list of created servers
-	"""
+	"""Creates numservers amount of servers and returns the list of created servers"""
 	print ("authtoken: %s, url : %s, name : %s, numservers : %s, osimageref : %s, osimagename %s, projectname : %s, flavor : %s" 
 		   % (authtoken, url, name, numservers, osimageref, osimagename, projectname, flavor))
 
@@ -16,12 +16,7 @@ def build_servers(authtoken, url, name, numservers, osimageref, osimagename, pro
 	return servers
 
 def build_server(authtoken, url, name, osimageref, osimagename,  projectname, flavor):
-	"""
-		Builds a new server on the account using the api for the give url
-	"""
-	# print for debugging
-	#print ("name : %s, url : %s, osimageref : %s, osimagename: %s, project : %s, flavor : %s" 
-	#	   % (name, url, osimageref, osimagename, projectname, flavor))
+	"""Builds a new server on the account using the api for the give url"""
 
 	# build json to submit
 	build = {
@@ -46,9 +41,7 @@ def build_server(authtoken, url, name, osimageref, osimagename,  projectname, fl
 	return content
 
 def delete_servers(authtoken, url, serverids):
-	"""
-		Delete a list of servers by ids
-	"""
+	"""Delete a list of servers by ids"""
 
 	success = []
 	failed = []
@@ -62,9 +55,7 @@ def delete_servers(authtoken, url, serverids):
 	return {'success' : success, 'failed' : failed}
 
 def delete_server(authtoken, url, serverid):
-	"""
-		Deletes a given server with id
-	"""
+	"""Deletes a given server with id"""
 
 	print url + '/servers/%s' % serverid
 	headers = {'X-Auth-Token': authtoken, 'content-type': 'application/json'}

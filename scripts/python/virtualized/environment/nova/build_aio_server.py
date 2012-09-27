@@ -6,6 +6,9 @@ import argparse
 import novaaccount
 import novaservers
 
+""" Builds an AIO Server on the given Nova Account """
+
+print "!!## -- Begin Build AIO Nova Environment -- ##!!"
 # Gather the arguments from the command line
 parser = argparse.ArgumentParser()
 
@@ -51,34 +54,70 @@ print results
 
 # Gather Auth info
 account_info = novaaccount.generate_account_info(results.url, results.username, results.password, results.tenant_id)
-print "Authtoken : " + account_info['authtoken']
-print "Account / Tenant : " + account_info['account']
+
+# Print debugging
+#print "Authtoken : " + account_info['authtoken']
+#print "Account / Tenant : " + account_info['account']
 #print json.dumps(account_info, indent=2)
 
 # Gather URL endpoints
 urls = novaaccount.urls(account_info['catalogs'])
-print json.dumps(urls, indent=2)
+
+# Print debugging
+#print json.dumps(urls, indent=2)
 
 # Gather available images
 images = novaaccount.images(urls['nova'], account_info['authtoken'])
-print json.dumps(images, indent=2)
+
+# Print debugging
+#print json.dumps(images, indent=2)
 
 # Gather available flavors
 flavors = novaaccount.flavors(urls['nova'], account_info['authtoken'])
-print json.dumps(flavors, indent=2)
+
+# Print debugging
+#print json.dumps(flavors, indent=2)
 
 # Gather running servers
 servers = novaaccount.servers(urls['nova'], account_info['authtoken'])
-print json.dumps(servers, indent=2)
 
+# Print debugging
+#print json.dumps(servers, indent=2)
+
+# Build the server(s)
 new_servers = novaservers.build_servers(account_info['authtoken'],
-									  urls['nova'],
-									  results.server_name,
-									  results.num_servers,
-									  images[results.os_image],
-									  results.os_image,
-									  results.tenant_id,
-									  flavors[results.server_flavor])
+										urls['nova'],
+										results.server_name,
+										results.num_servers,
+										images[results.os_image],
+										results.os_image,
+										results.tenant_id,
+										flavors[results.server_flavor])
 
 # print debugging
-print json.dumps(new_servers, indent=2)
+#print json.dumps(new_servers, indent=2)
+
+build_info = {'account_num' : account_info['account'],
+			  'authtoken' : account_info['authtoken'],
+			  'urls' : urls,
+			  'new_servers' : new_servers,
+			  'server_name' : results.server_name
+			  }
+
+# Write build_info as a json file
+try:
+	# Open the file
+	fo = open("%s-build.json" % (results.username), "w")
+except IOError:
+	print "Failed to open file %s-build.json" % (results.username)
+else:
+	# Write the json string
+	fo.write(json.dumps(build_info, indent=2))
+	
+	#close the file
+	fo.close()
+	
+	# print out successfull write text
+	print "!! %s.json file write successful to directory %s" % (results.username, subprocess.call('pwd'))
+
+print "!!## -- End Build AIO Nova Environment -- ##!!"
