@@ -99,8 +99,7 @@ servers = novaaccount.servers(urls['nova'], account_info['authtoken'])
 print json.dumps(servers, indent=2)
 
 # build the list of personalities to use, this will become parameters (maybe)
-personalities = novaservers.add_personalities([{'path': '/opt/rpcs/post-install.sh', 'filename': 'post-install.sh'},
-											   {'path': '/opt/rpcs/functions.sh', 'filename': 'functions.sh'}])
+personalities = novaservers.add_personalities([{'path': '/opt/rpcs/post-install.sh', 'filename': 'post-install.sh'}])
 
 print json.dumps(personalities, indent=2)
 
