@@ -95,8 +95,7 @@ def add_personality(path, filename):
 		# Open the file and convert its contents to base64
 		fo_contents = fo.read()
 		fo_contents_64 = base64.b64encode(fo_contents)
-		per['path'] = path
-		per['contents'] = fo_contents_64
-
+		per['path'], per['contents'] = path, fo_contents_64
+		
 	return per
 
