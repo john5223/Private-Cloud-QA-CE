@@ -113,6 +113,7 @@ new_servers = novaservers.build_servers(account_info['authtoken'],
 										results.os_image,
 										results.tenant_id,
 										flavors[results.server_flavor],
+										personalities,
 										results.key_name)
 
 # print debugging
