@@ -99,7 +99,8 @@ servers = novaaccount.servers(urls['nova'], account_info['authtoken'])
 print json.dumps(servers, indent=2)
 
 # build the list of personalities to use, this will become parameters (maybe)
-personalities = novaservers.add_personalities([{'path': '/opt/rpcs/post-install.sh', 'filename': 'post-install.sh'}])
+post_install = {'path': '/opt/rpcs/post-install.sh', 'filename': 'post-install.sh'}
+personalities = novaservers.add_personalities([post_install])
 
 print json.dumps(personalities, indent=2)
 
@@ -112,7 +113,6 @@ new_servers = novaservers.build_servers(account_info['authtoken'],
 										results.os_image,
 										results.tenant_id,
 										flavors[results.server_flavor],
-										personalities,
 										results.key_name)
 
 # print debugging
@@ -123,7 +123,8 @@ build_info = {'account_num' : account_info['account'],
 			  'authtoken' : account_info['authtoken'],
 			  'urls' : urls,
 			  'new_servers' : new_servers,
-			  'server_name' : results.server_name
+			  'server_name' : results.server_name,
+			  'key-name' : results.key_name
 			  }
 
 # Write build_info as a json file

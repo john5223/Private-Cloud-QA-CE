@@ -56,11 +56,13 @@ for new_server in account_info['new_servers']:
 			public_ip = curr_servers[curr_server]['public_ip']
 			private_ip = curr_servers[curr_server]['private_ip']
 			status = curr_servers[curr_server]['status']
-			servers[name] = {'user' : admin_user,
-					  		 'admin_pass' : admin_pass,
-					  		 'public_ip' : public_ip,
-					  		 'private_ip' : private_ip,
-					  		 'status' : status
+			key_name = new_server['server']['key_name']
+			servers[name] = {'user': admin_user,
+					  		 'admin_pass': admin_pass,
+					  		 'key_name': key_name, 
+					  		 'public_ip': public_ip,
+					  		 'private_ip': private_ip,
+					  		 'status': status
 					  		 }
 
 # Print the json of server info (Debug)
