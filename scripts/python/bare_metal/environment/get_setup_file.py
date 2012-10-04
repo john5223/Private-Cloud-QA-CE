@@ -54,7 +54,7 @@ session = ssh_session(results.user_name, results.host_name, results.user_passwd,
 session.ssh('wget %s/%s' % (results.file_server_url, results.file))
 
 # Run the script that we just downloaded
-session.ssh('chmod %s' % (results.file))
+session.ssh('chmod 755 %s' % (results.file))
 session.ssh('./%s' % (results.file))
 
 print "!!## -- Ending Setup for Bare Metal -- ##!!"
