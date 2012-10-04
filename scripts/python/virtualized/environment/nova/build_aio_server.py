@@ -100,7 +100,7 @@ print json.dumps(servers, indent=2)
 
 # build the list of personalities to use, this will become parameters (maybe)
 post_install = {'path': '/opt/rpcs/post-install.sh', 'filename': 'post-install.sh'}
-personalities = novaservers.add_personalities([post_install])
+personalities = novaservers.add_personalities([])
 
 print json.dumps(personalities, indent=2)
 

@@ -3,71 +3,77 @@ import os
 import subprocess
 import json
 import argparse
+from ssh_session import ssh_session
 
+""" 
+	This script will run from Jenkins and call Razor to build a server at the given IP.
+    It will also build the rpcs.cfg file.
 """
---role $ROLE --net_public_iface $NET_PUBLIC_IFACE --net_private_iface $NET_PRIVATE_IFACE --net_con_ip $NET_CON_IP --net_mgmt $NET_MGMT --net_nova $NET_NOVA --net_public $NET_PUBLIC --net_fixed $NET_FIXED --net_dmz $NET_DMZ --net_dmz_gateway $NET_DMZ_GATEWAY --net_bridge $NET_BRIDGE --os_admin_passwd $OS_ADMIN_PASSWD --os_user_name $OS_USER_NAME --os_user_passwd $OS_USER_PASSWD
-"""
 
-print "Start Gather All-In-One Server Info"
+print "Starting Build Alamo Server"
 
-# Gather the argumetn from the command line
+# Gather the argument from the command line
 parser = argparse.ArgumentParser()
 
 # Get the role for the server
+parser.add_argument('--server_hostname', action="store", dest="server_hostname", 
+					type=str, required=True, help="Hostname/IP of the server")
+
+# Get the role for the server
 parser.add_argument('--role', action="store", dest="role", 
-					help="Role for the server (Controller / All-In-One / Compute")
+					type=str, default="All-In-One", help="Role for the server (Controller / All-In-One / Compute")
 
 # Get the interface for the public network
 parser.add_argument('--net_public_iface', action="store", dest="net_public_iface", 
-					help="Interface for the public network")
+					type=str, default="eth0", help="Interface for the public network")
 
 # Get the interface for the private network
 parser.add_argument('--net_private_iface', action="store", dest="net_private_iface", 
-					help="Interface for the private network")
+					type=str, default="eth1", help="Interface for the private network")
 
 # Get the IP address of the controller
 parser.add_argument('--net_con_ip', action="store", dest="net_con_ip", 
-					help="IP address of the controller")
+					type=str, default="", help="IP address of the controller")
 
 # Get the CIDR block for the Nova Management Network
 parser.add_argument('--net_mgmt', action="store", dest="net_mgmt",
-					default=" ", help="CIDR block for the Nova Management Network")
+					type=str, default="", help="CIDR block for the Nova Management Network")
 
 # Get the CIDR block for the nova network
 parser.add_argument('--net_nova', action="store", dest="net_nova", 
-					default="", help="CIDR block for the nova network")
+					type=str, default="", help="CIDR block for the nova network")
 
 # Get the CIDR block for the public network
 parser.add_argument('--net_public', action="store", dest="net_public", 
-					default="", help="CIDR block for the public network")
+					type=str, default="", help="CIDR block for the public network")
 
 # Get the CIDR block for the Nova Fixed (VM) Network
 parser.add_argument('--net_fixed', action="store", dest="net_fixed", 
-					help="CIDR block for the Nova Fixed (VM) Network")
+					type=str, default="172.31.0.0/24", help="CIDR block for the Nova Fixed (VM) Network")
 
 # Get the CIDR block for the DMZ Network
 parser.add_argument('--net_dmz', action="store", dest="net_dmz", 
-					default="", help="CIDR block for the DMZ Network")
+					type=str, default="", help="CIDR block for the DMZ Network")
 
 # Get the gateway for the DMZ
 parser.add_argument('--net_dmz_gateway', action="store", dest="net_dmz_gateway", 
-					default="", help="Gateway for the DMZ")
+					type=str, default="", help="Gateway for the DMZ")
 
 # Get the name of the Nova Fixed Bridge Interface
 parser.add_argument('--net_bridge', action="store", dest="net_bridge", 
-					default="", help="Name of the Nova Fixed Bridge Interface")
+					type=str, default="br0", help="Name of the Nova Fixed Bridge Interface")
 
 # Get the password for the openstack admin user
 parser.add_argument('--os_admin_passwd', action="store", dest="os_admin_passwd", 
-					help="Password for the OpenStack admin user")
+					type=str, default="admin", help="Password for the OpenStack admin user")
 
 # Get the username for a normal Openstack user
 parser.add_argument('--os_user_name', action="store", dest="os_user_name", 
-					help="Username for the normal OpenStack user")
+					type=str, default="demo", help="Username for the normal OpenStack user")
 
 # Get the password for the normal Openstack user
 parser.add_argument('--os_user_passwd', action="store", dest="os_user_passwd", 
-					help="Password for the normal OpenStack user")
+					type=str, default="demo", help="Password for the normal OpenStack user")
 
 # Save the parameters
 results = parser.parse_args()
@@ -81,7 +87,7 @@ try:
 except OSError:
 	print "No Such Directory : %s" % (workspace_dir)
 
-## convert the passed parameters to a json for easy consumption and file writing
+# Convert the passed parameters to a json for easy consumption and file writing
 server_config = {
 	'role' : results.role,
 	'net_public_iface' : results.net_public_iface,
@@ -98,9 +104,34 @@ server_config = {
 	'os_user_name' : results.os_user_name,
 	'os_user_passwd' : results.os_user_passwd
 }
-# Print debug
-print json.dumps(server_config, indent=2)
 
-## Check the networking information, if things are missing, go get them
+# This is where we would call the Razor API to build the server
+# !! This is not being done atm, once we have razor set up we will code it here !!
 
-#
+# Check the networking information, if things are missing, go get them
+for item in server_config:
+	if len(server_config[item]) <= 0:
+		print "%s : %s : %s" % (item, type(server_config[item]), 'empty')
+		server_config[item] = '""'
+
+# Write the rpcs.cfg file
+try:
+	# Open the file
+	fo = open("%s-rpcs.cfg" % (results.server_hostname),"w")
+except IOError:
+	print "Failed to open file rpcs.cfg"
+else:
+	# Write cfg file
+	for item in server_config:
+		to_write_string = "%s=%s\n" % (item, server_config[item])
+		fo.write(to_write_string)
+
+	fo.close()
+	print "!!## -- %s-rpcs.cfg written successfully -- ##!!" % (results.server_hostname)
+
+## Need to move the new server cfg file to our file server.
+
+ssh_sess = ssh_session('alamo','198.31.203.76','alamo')
+ssh_sess.scp('%s-rpcs.cfg' $ (results.server_hostname), '/var/www/alamo')
+
+print "Finishing Build Alamo Server"
