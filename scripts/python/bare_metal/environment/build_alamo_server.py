@@ -16,8 +16,8 @@ print "Starting Build Alamo Server"
 parser = argparse.ArgumentParser()
 
 # Get the role for the server
-parser.add_argument('--server_hostname', action="store", dest="server_hostname", 
-					type=str, required=True, help="Hostname/IP of the server")
+parser.add_argument('--server_ip', action="store", dest="server_ip", 
+					type=str, required=True, help="IP of the server")
 
 # Get the role for the server
 parser.add_argument('--role', action="store", dest="role", 
@@ -57,7 +57,7 @@ parser.add_argument('--net_dmz', action="store", dest="net_dmz",
 
 # Get the gateway for the DMZ
 parser.add_argument('--net_dmz_gateway', action="store", dest="net_dmz_gateway", 
-					type=str, default="", help="Gateway for the DMZ")
+					type=str, default="", help="Gateway for the DMZ network")
 
 # Get the name of the Nova Fixed Bridge Interface
 parser.add_argument('--net_bridge', action="store", dest="net_bridge", 
