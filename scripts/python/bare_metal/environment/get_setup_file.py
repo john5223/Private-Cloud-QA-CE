@@ -26,7 +26,10 @@ parser.add_argument('-user_passwd', action="store", dest="user_passwd",
 
 # Get the url of the file server to pull files from
 parser.add_argument('-file_server_url', action="store", dest="file_server_url",
-					default="http://198.31.203.76/alamo/prepare-alamo-server.sh", help="The location to get the prepare script")
+					required=True, default="http://198.31.203.76/alamo", help="URL of the file server")
+
+parser.add_argument('-file', action="store", dest="file",
+					required=True, default="prepare-alamo-server.sh", help="The location to get the setup file")
 
 # Get the password for the host
 parser.add_argument('-v', action="store", dest="verbose", 
@@ -48,10 +51,10 @@ except OSError:
 session = ssh_session(results.user_name, results.host_name, results.user_passwd, results.verbose)
 
 # Download the set-up script
-session.ssh('wget %s' % (results.file_server_url))
+session.ssh('wget %s/%s' % (results.file_server_url, results.file))
 
 # Run the script that we just downloaded
-session.ssh('chmod prepare-alamo-server.sh')
-session.ssh('./prepare-alamo-server.sh')
+session.ssh('chmod %s' % (results.file))
+session.ssh('./%s' % (results.file))
 
 print "!!## -- Ending Setup for Bare Metal -- ##!!"
