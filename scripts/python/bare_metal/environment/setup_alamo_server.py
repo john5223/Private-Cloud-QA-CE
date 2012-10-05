@@ -63,11 +63,11 @@ my_session.scp('%s-rpcs.cfg' % results.host_name, '')
 
 # scp the functions.sh script to the server
 print "Copying functions.sh to the server"
-my_session.scp('functions.sh', '')
+my_session.scp('/scripts/bash/functions.sh', '')
 
 # scp the post-install.sh script to the server
 print "Copying post-install.sh to the server"
-my_session.scp('post-install.sh', '')
+my_session.scp('/scripts/bash/post-install.sh', '')
 
 # Close the SSH Session
 print "Closing SSH Session"
