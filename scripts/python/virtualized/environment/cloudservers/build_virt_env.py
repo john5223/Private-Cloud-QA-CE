@@ -69,11 +69,11 @@ flavors = cloudaccount.flavors(urls[results.dc], account_info['authtoken'])
 images = cloudaccount.images(urls[results.dc], account_info['authtoken'])
 
 # build the list of personalities to use, this will become parameters (maybe)
-personalities = cloudservers.add_personalities([{'path': '/opt/rpcs/rpcs.conf', 'filename': 'rpcs.conf'},
-											   {'path': '/opt/rpcs/post-install.sh', 'filename': 'post-install.sh'},
-											   {'path': '/opt/rpcs/functions.sh', 'filename': 'functions.sh'}])
+#personalities = cloudservers.add_personalities([{'path': '/opt/rpcs/rpcs.conf', 'filename': 'rpcs.conf'},
+#											   {'path': '/opt/rpcs/post-install.sh', 'filename': 'post-install.sh'},
+#											   {'path': '/opt/rpcs/functions.sh', 'filename': 'functions.sh'}])
 
-print json.dumps(personalities, indent=2)
+#print json.dumps(personalities, indent=2)
 
 # Build the servers
 new_servers = cloudservers.build_servers(account_info['authtoken'], 
