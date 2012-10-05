@@ -123,7 +123,7 @@ for item in server_config:
 # Write the rpcs.cfg file
 try:
 	# Open the file
-	fo = open("%s-rpcs.cfg" % (results.server_hostname),"w")
+	fo = open("%s-rpcs.cfg" % (results.server_ip),"w")
 except IOError:
 	print "Failed to open file rpcs.cfg"
 else:
@@ -133,6 +133,6 @@ else:
 		fo.write(to_write_string)
 
 	fo.close()
-	print "!!## -- %s-rpcs.cfg written successfully -- ##!!" % (results.server_hostname)
+	print "!!## -- %s-rpcs.cfg written successfully -- ##!!" % (results.server_ip)
 
 print "Finishing Build Alamo Server"
