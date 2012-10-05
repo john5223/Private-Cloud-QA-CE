@@ -3,6 +3,10 @@
 ## This is a script that is run locally to prepare a server for installing alamo
 ## Author : Solomon Wagner
 
+
+## Swith to root
+sudo su -
+
 ## CREATE NEEDED DIRECTORIES
 # make the /opt/rpcs directory and move into it
 mkdir -p /opt/rpcs
@@ -25,6 +29,8 @@ FILE_SERVER_URL="http://198.61.203.76/alamo"
 POST_INSTALL_LOCATION="post-install.sh"
 FUNCTIONS_LOCATION="functions.sh"
 RPCS_CFG_LOCATION="${HOSTNAME}-rpcs.cfg"
+
+echo "Updating packages"
 
 ## Gather the resource files that we need 
 # Download the cirros image
