@@ -3,10 +3,6 @@
 ## This is a script that is run locally to prepare a server for installing alamo
 ## Author : Solomon Wagner
 
-
-## Swith to root
-sudo su -
-
 ## CREATE NEEDED DIRECTORIES
 # make the /opt/rpcs directory and move into it
 mkdir -p /opt/rpcs
@@ -15,6 +11,8 @@ cd /opt/rpcs
 # Get the hostname of the server
 echo "Gathering name of the current host"
 HOSTNAME = hostname
+
+echo ${HOSTNAME}
 
 ## GATHER DEFAULT IMAGES
 # Image URLS

@@ -64,6 +64,10 @@ parser.add_argument('--net_bridge', action="store", dest="net_bridge",
 					type=str, default="br0", help="Name of the Nova Fixed Bridge Interface")
 
 # Get the password for the openstack admin user
+parser.add_argument('--os_admin_user', action="store", dest="os_admin_user", 
+					type=str, default="administrator", help="Username for the OpenStack admin user")
+
+# Get the password for the openstack admin user
 parser.add_argument('--os_admin_passwd', action="store", dest="os_admin_passwd", 
 					type=str, default="admin", help="Password for the OpenStack admin user")
 
@@ -130,8 +134,7 @@ else:
 	print "!!## -- %s-rpcs.cfg written successfully -- ##!!" % (results.server_hostname)
 
 ## Need to move the new server cfg file to our file server.
-
-ssh_sess = ssh_session('alamo','198.31.203.76','alamo')
-ssh_sess.scp('%s-rpcs.cfg' $ (results.server_hostname), '/var/www/alamo')
+#ssh_sess = ssh_session('alamo','198.31.203.76','alamo')
+#ssh_sess.scp('%s-rpcs.cfg' $ (results.server_hostname), '/var/www/alamo')
 
 print "Finishing Build Alamo Server"

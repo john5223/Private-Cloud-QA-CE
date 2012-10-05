@@ -20,7 +20,7 @@ class ssh_session:
         self.password = password
         self.keys = [
             'authenticity',
-            'assword:',
+            'password:',
             '@@@@@@@@@@@@',
             'Command not found.',
             EOF,
@@ -66,19 +66,26 @@ class ssh_session:
         
         if self.verbose:
             sys.stderr.write("<- " + child.before + "|\n")
+        
         try:
             self.f.write(str(child.before) + str(child.after)+'\n')
         except:
             pass
         
-        self.f.close()
+        #self.f.close()
         return child.before
 
     def ssh(self, command):
         return self.__exec("ssh -l %s %s \"%s\"" % (self.user,self.host,command))
 
+    def sudo_ssh(self, command):
+        return self.__exec("ssh -t %s@%s \"%s\"" % (self.user, self.host, command))
+
     def scp(self, src, dst):
-        return self.__exec("scp %s %s@%s:%s" % (src, session.user, session.host, dst))
+        return self.__exec("scp %s %s@%s:%s" % (src, self.user, self.host, dst))
+
+    def close(self):
+        self.f.close()
 
     def exists(self, file):
         "Retrieve file permissions of specified remote file."
