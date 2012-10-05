@@ -6,7 +6,7 @@
 #check to make sure user can be root
 
 if [ `whoami` != "root" ] ; then
-    echo "Can only run script as root"
+    echo "Can only run script as root"; exit;
 fi
 
 #Check for file installed by alamo. 
@@ -170,6 +170,8 @@ wget 198.61.203.76/zodiac/dbupload-config.py
 python dbupload-config.py zodiac.conf hwinfo.txt nova-version.txt
 rm dbupload-config.py
 
+
+echo "HOST ID:  $ZODIAC_HOST_ID " 
 
 
 
