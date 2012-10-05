@@ -56,38 +56,41 @@ else
 	wget ${CHEF_IMAGE_URL}
 fi
 
-# Download the precise image
-if [ `ls | grep $POST_INSTALL_LOCATION` = $POST_INSTALL_LOCATION ]; then
-	echo "${POST_INSTALL_LOCATION} already downloaded"
-else
-	echo "Downloading post-install.sh"
-	wget "${FILE_SERVER_URL}/${POST_INSTALL_LOCATION}"
-fi
+
+## This functionality got moved to setup_alamo_server.py
+
+# Download the post-install.sh script
+#if [ `ls | grep $POST_INSTALL_LOCATION` = $POST_INSTALL_LOCATION ]; then
+#	echo "${POST_INSTALL_LOCATION} already downloaded"
+#else
+#	echo "Downloading post-install.sh"
+#	wget "${FILE_SERVER_URL}/${POST_INSTALL_LOCATION}"
+#fi
 
 # Download functions.sh
-if [ `ls | grep $FUNCTIONS_LOCATION` = $FUNCTIONS_LOCATION ]; then
-	echo "${FUNCTIONS_LOCATION} already downloaded"
-else
-	echo "Downloading functions.sh"
-	wget "${FILE_SERVER_URL}/${FUNCTIONS_LOCATION}"
-fi
+#if [ `ls | grep $FUNCTIONS_LOCATION` = $FUNCTIONS_LOCATION ]; then
+#	echo "${FUNCTIONS_LOCATION} already downloaded"
+#else
+#	echo "Downloading functions.sh"
+#	wget "${FILE_SERVER_URL}/${FUNCTIONS_LOCATION}"
+#fi
 
 # Download the rpcs.cfg file for this hostname
-if [ `ls | grep rpcs.cfg` = 'rpcs.cfg']; then
-	echo "rpcs.cfg for this server already downloaded"
-else
+#if [ `ls | grep rpcs.cfg` = 'rpcs.cfg']; then
+#	echo "rpcs.cfg for this server already downloaded"
+#else
 	# Download the rpcs.cfg for this server		
-	echo "Downloading ${HOSTNAME}-rpcs.cfg"
-	wget "${FILE_SERVER_URL}/${RPCS_CFG_LOCATION}"
+#	echo "Downloading ${HOSTNAME}-rpcs.cfg"
+#	wget "${FILE_SERVER_URL}/${RPCS_CFG_LOCATION}"
 
 	# Create rpcs.cfg
-	echo "Creating rpcs.cfg"
-	cp "${HOSTNAME}-rpcs.cfg" rpcs.cfg
+#	echo "Creating rpcs.cfg"
+#	cp "${HOSTNAME}-rpcs.cfg" rpcs.cfg
 
 	# Delete old rpcs.cfg
-	echo "Deleting ${HOSTNAME}-rpcs.cfg"
-	rm -r "${HOSTNAME}-rpcs.cfg"
-fi
+#	echo "Deleting ${HOSTNAME}-rpcs.cfg"
+#	rm -r "${HOSTNAME}-rpcs.cfg"
+#fi
 
 echo "Installing Ubuntu Packages needed to run alamo"
 apt-get install -y openssh-server build-essential libvirt-bin qemu-kvm sshpass pwgen dialog curl
