@@ -69,6 +69,7 @@ my_session.scp('functions.sh', '')
 print "Copying post-install.sh to the server"
 my_session.scp('post-install.sh', '')
 
+# Close the SSH Session
 print "Closing SSH Session"
 my_session.close()
 

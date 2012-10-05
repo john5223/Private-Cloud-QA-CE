@@ -106,8 +106,8 @@ server_config = {
 	'net_bridge' : results.net_bridge,
 	'os_admin_passwd' : results.os_admin_passwd,
 	'os_user_name' : results.os_user_name,
-	'os_user_passwd' : results.os_user_passwd
-	'precise_url' : 'file:///opt/rpcs/precise-server-cloudimg-amd64.tar.gz'
+	'os_user_passwd' : results.os_user_passwd,
+	'precise_url' : 'file:///opt/rpcs/precise-server-cloudimg-amd64.tar.gz',
 	'cirros_url': 'file:///opt/rpcs/cirros-0.3.0-x86_64-uec.tar.gz'
 }
 
