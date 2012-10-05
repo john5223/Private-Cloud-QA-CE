@@ -7,33 +7,31 @@ import subprocess
 import argparse
 from ssh_session import ssh_session
 
-print "!!## -- Running Setup for Bare Metal -- ##!!"
-
 # Gather the arguments from the command line
 parser = argparse.ArgumentParser()
 
 # Get the hostname for the alamo server
-parser.add_argument('-host_name', action="store", dest="host_name", 
+parser.add_argument('--host_name', action="store", dest="host_name", 
 					required=True, help="Hostname/IP for the Server")
 
 # Get the username for the host
-parser.add_argument('-user_name', action="store", dest="user_name", 
+parser.add_argument('--user_name', action="store", dest="user_name", 
 					required=True, help="Non-root user name for the host")
 
 # Get the password for the host
-parser.add_argument('-user_passwd', action="store", dest="user_passwd", 
+parser.add_argument('--user_passwd', action="store", dest="user_passwd", 
 					required=True, help="Non-root password for the host")
 
 # Get the url of the file server to pull files from
-parser.add_argument('-file_server_url', action="store", dest="file_server_url",
+parser.add_argument('--file_server_url', action="store", dest="file_server_url",
 					required=True, help="URL of the file server")
 
-parser.add_argument('-file', action="store", dest="file",
+parser.add_argument('--file', action="store", dest="file",
 					required=True, help="The location to get the setup file")
 
 # Get the password for the host
-parser.add_argument('-v', action="store", dest="verbose", 
-					default=None, help="Verbose")
+parser.add_argument('--v', action="store", dest="verbose", 
+					default=True, help="Verbose")
 
 # Parse the parameters
 results = parser.parse_args()
