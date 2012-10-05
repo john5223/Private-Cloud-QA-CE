@@ -21,6 +21,13 @@ POST_INSTALL_LOCATION="post-install.sh"
 FUNCTIONS_LOCATION="functions.sh"
 RPCS_CFG_LOCATION="${HOSTNAME}-rpcs.cfg"
 
+echo "Installing Ubuntu Packages needed to run alamo"
+apt-get install -y openssh-server build-essential libvirt-bin qemu-kvm sshpass pwgen dialog curl
+
+echo "Updating packages"
+apt-get update
+apt-get -y upgrade
+
 ## CREATE NEEDED DIRECTORIES
 # make the /opt/rpcs directory and move into it
 echo "Making /opt/rpcs directory"
@@ -56,7 +63,6 @@ else
 	wget ${CHEF_IMAGE_URL}
 fi
 
-
 ## This functionality got moved to setup_alamo_server.py
 
 # Download the post-install.sh script
@@ -91,13 +97,6 @@ fi
 #	echo "Deleting ${HOSTNAME}-rpcs.cfg"
 #	rm -r "${HOSTNAME}-rpcs.cfg"
 #fi
-
-echo "Installing Ubuntu Packages needed to run alamo"
-apt-get install -y openssh-server build-essential libvirt-bin qemu-kvm sshpass pwgen dialog curl
-
-echo "Updating packages"
-apt-get update
-apt-get -y upgrade
 
 # Once we have all we need, run the post-install.sh script
 #chmod +x post-install.sh
