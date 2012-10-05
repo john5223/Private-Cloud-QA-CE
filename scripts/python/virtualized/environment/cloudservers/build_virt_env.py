@@ -84,7 +84,7 @@ new_servers = cloudservers.build_servers(account_info['authtoken'],
 									   results.os_image, 
 									   results.project_name, 
 									   flavors[results.server_flavor],
-									   personalities
+									   None
 									   )
 
 # Print the created servers (DEBUG)
