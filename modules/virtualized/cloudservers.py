@@ -1,5 +1,6 @@
 import json
 import requests
+import base64
 
 def build_servers(authtoken, url, name, numservers, osimageref, osimagename, projectname, flavor, personalities=None, keyname=None):
 	"""
