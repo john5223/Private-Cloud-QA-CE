@@ -1,12 +1,7 @@
-#!/bin/sh
-print "Running"
-sudo su -
-
+#!/bin/bash
 #****************************
 # Check for Alamo install 
 #****************************
-
-
 
 #check to make sure user can be root
 
@@ -39,7 +34,7 @@ echo "eth0 ip address: $ip"
 
 #Source the .novarc for credentails for keystone and nova client
 cd /root
-source .novarc
+source /root/.novarc
 
 
 #[nova]

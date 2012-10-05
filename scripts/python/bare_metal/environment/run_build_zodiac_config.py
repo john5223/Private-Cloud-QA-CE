@@ -56,12 +56,25 @@ try:
 except OSError:
     print "No Such Directory : %s" % (workspace_dir)
 
-# Connect to the host
-session = ssh_session(results.user_name, results.host_name, results.user_passwd, results.verbose)
+
+filename=os.path.basename(results.source)
+
+
 
 # Download the set-up script
-print " %s : %s : %s" % (results.source, results.host_name, results.destination)
-session.scp(results.source, results.destintation)
+print " %s ==> %s:%s" % (results.source, results.host_name, results.destination)
+# Connect to the host
+session = ssh_session(results.user_name, results.host_name, results.user_passwd, results.verbose)
+session.scp(results.source, results.destination)
 
+print "chmod 0755 %s" % results.destination
+session.ssh('chmod 0755 %s/%s' % (results.destination, filename))
+
+# Run the script
+print "Running the script: %s" % results.destination
+session.sudo_ssh('sudo %s/./%s' % (results.destination, filename))
+
+
+session.close()
 
 print "!!## -- Ending Setup for Bare Metal -- ##!!"

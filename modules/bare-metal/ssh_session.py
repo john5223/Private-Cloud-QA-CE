@@ -72,7 +72,6 @@ class ssh_session:
         except:
             pass
         
-        #self.f.close()
         return child.before
 
     def ssh(self, command):
@@ -91,7 +90,7 @@ class ssh_session:
         "Retrieve file permissions of specified remote file."
         seen = self.ssh("/bin/ls -ld %s" % file)
         
-        if string.find(seen, "No such file") > -1:
+        if self.string.find(seen, "No such file") > -1:
             return None # File doesn't exist
         else:
             return seen.split()[0] # Return permission field of listing.

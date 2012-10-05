@@ -1,6 +1,7 @@
 #python specific
 *.pyc
-
+.project
+.pydevproject
 ## generic files to ignore
 *~
 *.lock
