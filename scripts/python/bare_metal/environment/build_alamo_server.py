@@ -107,6 +107,8 @@ server_config = {
 	'os_admin_passwd' : results.os_admin_passwd,
 	'os_user_name' : results.os_user_name,
 	'os_user_passwd' : results.os_user_passwd
+	'precise_url' : 'file:///opt/rpcs/precise-server-cloudimg-amd64.tar.gz'
+	'cirros_url': 'file:///opt/rpcs/cirros-0.3.0-x86_64-uec.tar.gz'
 }
 
 # This is where we would call the Razor API to build the server
@@ -132,9 +134,5 @@ else:
 
 	fo.close()
 	print "!!## -- %s-rpcs.cfg written successfully -- ##!!" % (results.server_hostname)
-
-## Need to move the new server cfg file to our file server.
-#ssh_sess = ssh_session('alamo','198.31.203.76','alamo')
-#ssh_sess.scp('%s-rpcs.cfg' $ (results.server_hostname), '/var/www/alamo')
 
 print "Finishing Build Alamo Server"
