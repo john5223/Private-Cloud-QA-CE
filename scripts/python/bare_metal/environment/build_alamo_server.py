@@ -123,7 +123,7 @@ except IOError:
 else:
 	# Write cfg file
 	for item in server_config:
-		to_write_string = "%s=%s\n" % (item, server_config[item])
+		to_write_string = '"%s=%s\n"' % (item, server_config[item])
 		fo.write(to_write_string)
 
 	fo.close()
