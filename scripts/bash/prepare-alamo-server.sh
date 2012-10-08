@@ -3,11 +3,7 @@
 ###################################################################################
 ## This is a script that is run locally to prepare a server for installing alamo ##
 ## Author : Solomon Wagner                                                       ##
-###################################################################################   
-
-echo "Switch to super user privaleges..."
-sudo su -
-echo "...Done"
+################################################################################### 
 
 #check to make sure user can be root
 if [ `whoami` != "root" ]; then
