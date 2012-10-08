@@ -43,12 +43,12 @@ my_session = ssh_session(results.user_name, results.host_name, results.user_pass
 print "...Done"
 
 # scp the setup file to the server
-print "Copying %s to %s:%s/%s..." % (results.setup_file, results.user_name, results.host_name, '')
+print "Copying prepare-alamo-server.sh to %s:%s/%s..." % (results.user_name, results.host_name, '')
 my_session.scp('%s/prepare-alamo-server.sh' % results.file_location, '')
 print "...Done"
 
-print "Changing permissions to 0755 on %s@%s..." % (results.setup_file, results.host_name)
-my_session.ssh('chmod 0755 %s' % results.setup_file)
+print "Changing permissions to 0755 on prepare-alamo-server.sh@%s..." % (results.host_name)
+my_session.ssh('chmod 0755 prepare-alamo-server.sh')
 print "...Done"
 
 # scp the rpcs.cfg file to the server
