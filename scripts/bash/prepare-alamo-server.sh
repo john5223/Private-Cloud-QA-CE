@@ -49,10 +49,6 @@ echo "Moving functions.sh to /opt/rpcs..."
 mv /home/administrator/functions.sh /opt/rpcs 
 echo "...Done"
 
-echo "Moving post-install.sh to /opt/rpcs..."
-mv /home/administrator/post-install.sh /opt/rpcs 
-echo "...Done"
-
 #Get ip address for eth0 (hopefully public ip) 
 ip=`ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 echo "eth0 ip address: $ip"
@@ -63,6 +59,19 @@ echo "...Done"
 
 echo "Moving rpcs.cfg into /opt/rpcs directory..."
 mv /home/administrator/rpcs.cfg /opt/rpcs
+echo "...Done"
+
+# Download the chef-server image	  	
+if [ `ls | grep $CHEF_IMAGE_NAME` = $CHEF_IMAGE_NAME ]; then  	
+	echo "${CHEF_IMAGE_NAME} already downloaded"	  	
+else
+	echo "Downloading ${CHEF_IMAGE_NAME}..."  	
+	wget ${CHEF_IMAGE_URL}  	
+	echo "...Done"
+fi
+
+echo "Copying ${CHEF_IMAGE_NAME} to /opt/rpcs"
+cp /home/administrator/$CHEF_IMAGE_NAME /opt/rpcs/
 echo "...Done"
 
 echo "Move into /opt/rpcs"
@@ -102,19 +111,14 @@ echo "Chmoding 0755 ${PRECISE_IMAGE_NAME}..."
 chmod 0755 ${PRECISE_IMAGE_NAME}
 echo "...Done"
 
-	
-# Download the chef-server image	  	
-if [ `ls | grep $CHEF_IMAGE_NAME` = $CHEF_IMAGE_NAME ]; then  	
-	echo "${CHEF_IMAGE_NAME} already downloaded"	  	
-else
-	echo "Downloading ${CHEF_IMAGE_NAME}..."  	
-	wget ${CHEF_IMAGE_URL}  	
-	echo "...Done"
-fi
-
 # Chmod the chef-server image to be executable
 echo "Chmoding 0755 ${CHEF_IMAGE_NAME}..."
 chmod 0755 ${CHEF_IMAGE_NAME}
+echo "...Done"
+
+# creating a chef-server.qcow2.pristine file to make the post-install.sh ignore the wget
+echo "Touching fake chef-server.qcow2.prisitne file..."
+touch chef-server.qcow2.pristine
 echo "...Done"
 
 # Once we have all we need, run the post-install.sh script
