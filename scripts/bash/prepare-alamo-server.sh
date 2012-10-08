@@ -5,8 +5,11 @@
 ## Author : Solomon Wagner                                                       ##
 ###################################################################################   
 
-#check to make sure user can be root
+echo "Switch to super user privaleges..."
+sudo su -
+echo "...Done"
 
+#check to make sure user can be root
 if [ `whoami` != "root" ]; then
     echo "Can only run script as root"; exit;
 fi
@@ -42,8 +45,28 @@ echo "Making /opt/rpcs directory..."
 mkdir -p /opt/rpcs
 echo "...Done"
 
-echo "Moving into /opt/rpcs directory..."
-cd /opt/rpcs
+echo "Moving post-install.sh to /opt/rpcs..."
+mv /home/administrator/post-install.sh /opt/rpcs 
+echo "...Done"
+
+echo "Moving functions.sh to /opt/rpcs..."
+mv /home/administrator/functions.sh /opt/rpcs 
+echo "...Done"
+
+echo "Moving post-install.sh to /opt/rpcs..."
+mv /home/administrator/post-install.sh /opt/rpcs 
+echo "...Done"
+
+#Get ip address for eth0 (hopefully public ip) 
+ip=`ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+echo "eth0 ip address: $ip"
+
+echo "Copying $ip-rpcs.cfg to rpcs.cfg..."
+cp $ip-rpcs.cfg rpcs.cfg
+echo "...Done"
+
+echo "Moving rpcs.cfg into /opt/rpcs directory..."
+mv /home/administrator/rpcs.cfg /opt/rpcs
 echo "...Done"
 
 # Get the hostname of the server
@@ -81,4 +104,6 @@ echo "CHMODing post-install.sh..."
 chmod +x post-install.sh
 echo "...Done"
 
-echo "Ubuntu Server Ready for Alamo Installation"
+echo "Exit sudo..."
+exit
+echo "...Done"
