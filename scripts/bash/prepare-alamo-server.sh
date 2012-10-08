@@ -16,6 +16,9 @@ CIRROS_IMAGE_NAME="cirros-0.3.0-x86_64-uec.tar.gz"
 CIRROS_URL="https://launchpadlibrarian.net/83305869/${CIRROS_IMAGE_NAME}"
 PRECISE_IMAGE_NAME="precise-server-cloudimg-amd64.tar.gz"
 PRECISE_URL="http://cloud-images.ubuntu.com/precise/current/${PRECISE_IMAGE_NAME}"
+CHEF_IMAGE_NAME="chef-server.qcow2"
+CHEF_IMAGE_HOST=${CHEF_IMAGE_HOST:-c390813.r13.cf1.rackcdn.com}
+CHEF_IMAGE_URL="http://${CHEF_IMAGE_HOST}/${CHEF_IMAGE_NAME}"
 
 # Our File Server URLS
 FILE_SERVER_URL="http://198.61.203.76/alamo"
@@ -97,6 +100,21 @@ fi
 # Chmod the Precise Image gz to be executable
 echo "Chmoding 0755 ${PRECISE_IMAGE_NAME}..."
 chmod 0755 ${PRECISE_IMAGE_NAME}
+echo "...Done"
+
+	
+# Download the chef-server image	  	
+if [ `ls | grep $CHEF_IMAGE_NAME` = $CHEF_IMAGE_NAME ]; then  	
+	echo "${CHEF_IMAGE_NAME} already downloaded"	  	
+else
+	echo "Downloading ${CHEF_IMAGE_NAME}..."  	
+	wget ${CHEF_IMAGE_URL}  	
+	echo "...Done"
+fi
+
+# Chmod the chef-server image to be executable
+echo "Chmoding 0755 ${CHEF_IMAGE_NAME}..."
+chmod 0755 ${CHEF_IMAGE_NAME}
 echo "...Done"
 
 # Once we have all we need, run the post-install.sh script
