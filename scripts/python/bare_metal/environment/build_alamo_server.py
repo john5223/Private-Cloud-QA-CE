@@ -108,7 +108,7 @@ server_config = {
 
 # Check the networking information, if things are missing, go get them
 for item in server_config:
-	if len(server_config[item]) <= 0:
+	if server_config[item] is None:
 		print "%s : %s : %s" % (item, type(server_config[item]), 'empty')
 		server_config[item] = '""'
 
