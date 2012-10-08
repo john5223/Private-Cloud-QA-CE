@@ -108,9 +108,9 @@ server_config = {
 
 # Check the networking information, if things are missing, go get them
 for item in server_config:
-	if server_config[item] is "None":
+	if server_config[item] == "None":
 		print "%s : %s : %s" % (item, type(server_config[item]), 'empty')
-		server_config[item] = '""'
+		server_config[item] = ''
 
 # Write the rpcs.cfg file
 print "Write %s-rpcs.cfg..." % results.server_ip
