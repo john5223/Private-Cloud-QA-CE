@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 import os
 import subprocess
 import json
@@ -10,7 +11,7 @@ from ssh_session import ssh_session
     It will also build the rpcs.cfg file.
 """
 
-print "Starting Build Alamo Server"
+print "!!## -- Start Build Alamo Server -- ##!!"
 
 # Gather the argument from the command line
 parser = argparse.ArgumentParser()
@@ -112,11 +113,13 @@ for item in server_config:
 		server_config[item] = '""'
 
 # Write the rpcs.cfg file
+print "Write %s-rpcs.cfg..." % results.server_ip
 try:
 	# Open the file
 	fo = open("%s-rpcs.cfg" % (results.server_ip),"w")
 except IOError:
-	print "Failed to open file rpcs.cfg"
+	print "...Failed to open file rpcs.cfg. Exiting..."
+	print "...%s-rpcs.cfg failed to write successfully."
 else:
 	# Write cfg file
 	for item in server_config:
@@ -124,6 +127,6 @@ else:
 		fo.write(to_write_string)
 
 	fo.close()
-	print "!!## -- %s-rpcs.cfg written successfully -- ##!!" % (results.server_ip)
+	print "...%s-rpcs.cfg written successfully!!" % (results.server_ip)
 
-print "Finishing Build Alamo Server"
+print "!!## -- Build Alamo Server Finished -- ##!!"

@@ -1,5 +1,5 @@
-
 #!/bin/bash
+
 #****************************
 # Check for Alamo install 
 #****************************
@@ -73,7 +73,7 @@ cd /root
 
 
 ##############################
-## Starting to write conif
+## Starting to write config
 ##############################
 
 

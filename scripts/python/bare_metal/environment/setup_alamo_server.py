@@ -1,11 +1,15 @@
 #!/usr/bin/python
-"""
-	This script connects to our blank ubuntu server and dl's and runs the set-up bash.
-"""
+
 import os
 import subprocess
 import argparse
 from ssh_session import ssh_session
+
+"""
+	This script connects to our blank ubuntu server and dl's and runs the set-up bash.
+"""
+
+print "!!## -- Start Setup Alamo Server -- ##!!"
 
 # Gather the arguments from the command line
 parser = argparse.ArgumentParser()
@@ -38,30 +42,37 @@ parser.add_argument('--v', action="store", dest="verbose",
 results = parser.parse_args()
 
 # Connect to the host
-print "Connecting to %s" % results.host_name
+print "Connecting to %s..." % results.host_name
 my_session = ssh_session(results.user_name, results.host_name, results.user_passwd, results.verbose)
+print "...Done"
 
 # scp the setup file to the server
-print "Copying %s to %s:%s/%s" % (results.setup_file, results.user_name, results.host_name, '')
+print "Copying %s to %s:%s/%s..." % (results.setup_file, results.user_name, results.host_name, '')
 my_session.scp('%s/%s' % (results.file_location, results.setup_file), '')
+print "...Done"
 
-print "Changing permissions to 0755 on %s@%s" % (results.setup_file, results.host_name)
+print "Changing permissions to 0755 on %s@%s..." % (results.setup_file, results.host_name)
 my_session.ssh('chmod 0755 %s' % results.setup_file)
+print "...Done"
 
 # scp the rpcs.cfg file to the server
-print "Copying rpcs.cfg to %s@%s/%s" %(results.user_name, results.host_name, '')
+print "Copying rpcs.cfg to %s@%s/%s..." %(results.user_name, results.host_name, '')
 my_session.scp('%s-rpcs.cfg' % results.host_name, '')
+print "...Done"
 
 # scp the functions.sh script to the server
-print "Copying functions.sh to the server"
+print "Copying functions.sh to the server..."
 my_session.scp('scripts/bash/functions.sh', '')
+print "...Done"
 
 # scp the post-install.sh script to the server
-print "Copying post-install.sh to the server"
+print "Copying post-install.sh to the server..."
 my_session.scp('scripts/bash/post-install.sh', '')
+print "...Done"
 
 # Close the SSH Session
-print "Closing SSH Session"
+print "Closing SSH Session..."
 my_session.close()
+print "...Done"
 
-print "!!## -- Ending Setup for Bare Metal -- ##!!"
+print "!!## -- Setup for Bare Metal Finished -- ##!!"

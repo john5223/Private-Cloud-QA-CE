@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 aptitude update
 aptitude install -y openjdk-6-jre
 aptitude install -y openjdk-6-jdk

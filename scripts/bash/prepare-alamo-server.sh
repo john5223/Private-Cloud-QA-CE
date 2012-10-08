@@ -5,6 +5,12 @@
 ## Author : Solomon Wagner                                                       ##
 ###################################################################################   
 
+#check to make sure user can be root
+
+if [ `whoami` != "root" ]; then
+    echo "Can only run script as root"; exit;
+fi
+
 # Image URLS
 # Might make the parameters in the future
 CIRROS_IMAGE_NAME="cirros-0.3.0-x86_64-uec.tar.gz"
@@ -21,20 +27,24 @@ POST_INSTALL_LOCATION="post-install.sh"
 FUNCTIONS_LOCATION="functions.sh"
 RPCS_CFG_LOCATION="${HOSTNAME}-rpcs.cfg"
 
-echo "Installing Ubuntu Packages needed to run alamo"
+echo "Installing Ubuntu Packages needed to run alamo..."
 apt-get install -y openssh-server build-essential libvirt-bin qemu-kvm sshpass pwgen dialog curl
+echo "...Done"
 
-echo "Updating packages"
+echo "Updating packages..."
 apt-get update
 apt-get -y upgrade
+echo "...Done"
 
 ## CREATE NEEDED DIRECTORIES
 # make the /opt/rpcs directory and move into it
-echo "Making /opt/rpcs directory"
+echo "Making /opt/rpcs directory..."
 mkdir -p /opt/rpcs
+echo "...Done"
 
-echo "Moving into /opt/rpcs directory"
+echo "Moving into /opt/rpcs directory..."
 cd /opt/rpcs
+echo "...Done"
 
 # Get the hostname of the server
 echo "HOSTNAME : ${HOSTNAME}"
@@ -43,61 +53,34 @@ echo "HOSTNAME : ${HOSTNAME}"
 if [ `ls | grep $CIRROS_IMAGE_NAME` = $CIRROS_IMAGE_NAME ]; then
 	echo "${CIRROS_IMAGE_NAME} already downloaded"
 else
-	echo "Downloading ${CIRROS_IMAGE_NAME}"
+	echo "Downloading ${CIRROS_IMAGE_NAME}..."
 	wget ${CIRROS_URL}
+	echo "...Done"
 fi
 
 # Download the precise image
 if [ `ls | grep $PRECISE_IMAGE_NAME` = $PRECISE_IMAGE_NAME ]; then
 	echo "${PRECISE_IMAGE_NAME} already downloaded"
 else
-	echo "Downloading ${PRECISE_IMAGE_NAME}"
+	echo "Downloading ${PRECISE_IMAGE_NAME}..."
 	wget ${PRECISE_URL}
+	echo "...Done"
 fi
 
 # Download the chef-server image
 if [ `ls | grep $CHEF_IMAGE_NAME` = $CHEF_IMAGE_NAME ]; then
 	echo "${CHEF_IMAGE_NAME} already downloaded"
 else
-	echo "Downloading ${CHEF_IMAGE_NAME}"
+	echo "Downloading ${CHEF_IMAGE_NAME}..."
 	wget ${CHEF_IMAGE_URL}
+	echo "...Done"
 fi
 
-## This functionality got moved to setup_alamo_server.py
-
-# Download the post-install.sh script
-#if [ `ls | grep $POST_INSTALL_LOCATION` = $POST_INSTALL_LOCATION ]; then
-#	echo "${POST_INSTALL_LOCATION} already downloaded"
-#else
-#	echo "Downloading post-install.sh"
-#	wget "${FILE_SERVER_URL}/${POST_INSTALL_LOCATION}"
-#fi
-
-# Download functions.sh
-#if [ `ls | grep $FUNCTIONS_LOCATION` = $FUNCTIONS_LOCATION ]; then
-#	echo "${FUNCTIONS_LOCATION} already downloaded"
-#else
-#	echo "Downloading functions.sh"
-#	wget "${FILE_SERVER_URL}/${FUNCTIONS_LOCATION}"
-#fi
-
-# Download the rpcs.cfg file for this hostname
-#if [ `ls | grep rpcs.cfg` = 'rpcs.cfg']; then
-#	echo "rpcs.cfg for this server already downloaded"
-#else
-	# Download the rpcs.cfg for this server		
-#	echo "Downloading ${HOSTNAME}-rpcs.cfg"
-#	wget "${FILE_SERVER_URL}/${RPCS_CFG_LOCATION}"
-
-	# Create rpcs.cfg
-#	echo "Creating rpcs.cfg"
-#	cp "${HOSTNAME}-rpcs.cfg" rpcs.cfg
-
-	# Delete old rpcs.cfg
-#	echo "Deleting ${HOSTNAME}-rpcs.cfg"
-#	rm -r "${HOSTNAME}-rpcs.cfg"
-#fi
-
 # Once we have all we need, run the post-install.sh script
-#chmod +x post-install.sh
-#./post-install.sh
+echo "CHMODing post-install.sh..."
+chmod +x post-install.sh
+echo "...Done"
+
+echo "Executing post-install.sh..."
+./post-install.sh
+echo "...Done"
