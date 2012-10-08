@@ -56,6 +56,16 @@ print "Copying rpcs.cfg to %s@%s/%s..." %(results.user_name, results.host_name, 
 my_session.scp('%s-rpcs.cfg' % results.host_name, '')
 print "...Done"
 
+# scp the functions.sh script to the server
+print "Copying functions.sh to the server..."
+my_session.scp('%s/functions.sh' % results.file_location, '')
+print "...Done"
+
+# scp the post-install.sh script to the server
+print "Copying post-install.sh to the server..."
+my_session.scp('%s/post-install.sh' % results.file_location, '')
+print "...Done"
+
 # Close the SSH Session
 print "Closing SSH Session..."
 my_session.close()
