@@ -47,15 +47,6 @@ parser.add_argument('--dc', action="store", dest="dc",
 # Save the parameters
 results = parser.parse_args()
 
-# Change to the workspace directory, if it doesnt exist, catch the error
-workspace_dir = '/var/lib/jenkins/workspace'
-try:
-	os.chdir(workspace_dir)
-	# Run git command to print current commit hash
-	subprocess.call(['git', 'log', '-1'])
-except OSError:
-	print "No Such Directory : %s" % (workspace_dir)
-
 # Create the account info
 account_info = cloudaccount.generate_account_info(results.username, results.apikey)
 

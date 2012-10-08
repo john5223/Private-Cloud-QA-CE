@@ -24,7 +24,7 @@ parser.add_argument('--apikey', action="store", dest="apikey",
 					help="api key for the account")
 
 # Get the name of the server
-parser.add_argument('--name', action="store", dest="server_name", 
+parser.add_argument('--server_name', action="store", dest="server_name", 
 					help="Name of server.")
 
 # Get the datacenter to create the servers in ( ex. DFW, ORD)

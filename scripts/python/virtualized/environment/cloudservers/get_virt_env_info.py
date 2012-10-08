@@ -19,15 +19,6 @@ parser.add_argument('--username', action="store", dest="username",
 # Save the parameters
 results = parser.parse_args()
 
-# Change to the workspace directory, if it doesnt exist, catch the error
-workspace_dir = '/var/lib/jenkins/workspace'
-try:
-	os.chdir(workspace_dir)
-	# Run git command to print current commit hash
-	subprocess.call(['git', 'log', '-1'])
-except OSError:
-	print "No Such Directory : %s" % (workspace_dir)
-
 try:
 	# Open the file
 	fo = open("%s-build.json" % (results.username), "r")

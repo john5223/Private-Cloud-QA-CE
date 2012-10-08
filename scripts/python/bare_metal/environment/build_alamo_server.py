@@ -82,15 +82,6 @@ parser.add_argument('--os_user_passwd', action="store", dest="os_user_passwd",
 # Save the parameters
 results = parser.parse_args()
 
-# Change to the workspace directory, if it doesnt exist, catch the error
-workspace_dir = '/var/lib/jenkins/workspace'
-try:
-	os.chdir(workspace_dir)
-	# Run git command to print current commit hash
-	subprocess.call(['git', 'log', '-1'])
-except OSError:
-	print "No Such Directory : %s" % (workspace_dir)
-
 # Convert the passed parameters to a json for easy consumption and file writing
 server_config = {
 	'role' : results.role,
