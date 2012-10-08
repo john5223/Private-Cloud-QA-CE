@@ -79,6 +79,12 @@ else
 	echo "...Done"
 fi
 
+# Chmod the Cirros Image gz to be executable
+echo "Chmoding 0755 ${CIRROS_IMAGE_NAME}..."
+chmod 0755 ${CIRROS_IMAGE_NAME}
+echo "...Done"
+
+echo 
 # Download the precise image
 if [ `ls | grep $PRECISE_IMAGE_NAME` = $PRECISE_IMAGE_NAME ]; then
 	echo "${PRECISE_IMAGE_NAME} already downloaded"
@@ -87,6 +93,11 @@ else
 	wget ${PRECISE_URL}
 	echo "...Done"
 fi
+
+# Chmod the Precise Image gz to be executable
+echo "Chmoding 0755 ${PRECISE_IMAGE_NAME}..."
+chmod 0755 ${PRECISE_IMAGE_NAME}
+echo "...Done"
 
 # Once we have all we need, run the post-install.sh script
 echo "CHMODing post-install.sh..."
