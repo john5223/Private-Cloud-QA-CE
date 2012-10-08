@@ -81,6 +81,4 @@ echo "CHMODing post-install.sh..."
 chmod +x post-install.sh
 echo "...Done"
 
-echo "Executing post-install.sh..."
-./post-install.sh
-echo "...Done"
+echo "Ubuntu Server Ready for Alamo Installation"
