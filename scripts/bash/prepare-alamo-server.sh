@@ -69,6 +69,11 @@ echo "Moving rpcs.cfg into /opt/rpcs directory..."
 mv /home/administrator/rpcs.cfg /opt/rpcs
 echo "...Done"
 
+echo "Move into /opt/rpcs"
+cd /opt/rpcs
+pwd
+echo "...Done"
+
 # Get the hostname of the server
 echo "HOSTNAME : ${HOSTNAME}"
 
@@ -101,7 +106,7 @@ fi
 
 # Once we have all we need, run the post-install.sh script
 echo "CHMODing post-install.sh..."
-chmod +x post-install.sh
+chmod 0755 post-install.sh
 echo "...Done"
 
 echo "Exit sudo..."
