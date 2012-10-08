@@ -62,7 +62,7 @@ mv /home/administrator/rpcs.cfg /opt/rpcs
 echo "...Done"
 
 # Download the chef-server image	  	
-if [ `ls | grep ${CHEF_IMAGE_NAME}` = $CHEF_IMAGE_NAME ]; then  	
+if [ `ls | grep ${CHEF_IMAGE_NAME}` -eq $CHEF_IMAGE_NAME ]; then  	
 	echo "${CHEF_IMAGE_NAME} already downloaded"	  	
 else
 	echo "Downloading ${CHEF_IMAGE_NAME}..."  	
@@ -83,7 +83,7 @@ echo "...Done"
 echo "HOSTNAME : ${HOSTNAME}"
 
 # Download the cirros image
-if [ `ls | grep ${CIRROS_IMAGE_NAME}` = $CIRROS_IMAGE_NAME ]; then
+if [ `ls | grep ${CIRROS_IMAGE_NAME}` -eq $CIRROS_IMAGE_NAME ]; then
 	echo "${CIRROS_IMAGE_NAME} already downloaded"
 else
 	echo "Downloading ${CIRROS_IMAGE_NAME}..."
@@ -98,7 +98,7 @@ echo "...Done"
 
 echo 
 # Download the precise image
-if [ `ls | grep ${PRECISE_IMAGE_NAME}` = $PRECISE_IMAGE_NAME ]; then
+if [ `ls | grep ${PRECISE_IMAGE_NAME}` -eq $PRECISE_IMAGE_NAME ]; then
 	echo "${PRECISE_IMAGE_NAME} already downloaded"
 else
 	echo "Downloading ${PRECISE_IMAGE_NAME}..."
