@@ -104,7 +104,3 @@ fi
 echo "CHMODing post-install.sh..."
 chmod 0755 post-install.sh
 echo "...Done"
-
-echo "Exit sudo..."
-exit
-echo "...Done"
