@@ -39,7 +39,6 @@ parser.add_argument('-v', action="store", dest="verbose",
 
 # Parse the parameters
 results = parser.parse_args()
-filename=os.path.basename(results.source)
 
 # Connect to the host
 print "Setting up session"
