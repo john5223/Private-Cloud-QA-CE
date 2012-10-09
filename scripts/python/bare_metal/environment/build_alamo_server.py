@@ -108,9 +108,9 @@ server_config = {
 
 # Check the networking information, if things are missing, go get them
 for item in server_config:
-	if len(server_config[item]) <= 0:
+	if server_config[item] == "None":
 		print "%s : %s : %s" % (item, type(server_config[item]), 'empty')
-		server_config[item] = '""'
+		server_config[item] = ''
 
 # Write the rpcs.cfg file
 print "Write %s-rpcs.cfg..." % results.server_ip
@@ -123,7 +123,7 @@ except IOError:
 else:
 	# Write cfg file
 	for item in server_config:
-		to_write_string = "%s=%s\n" % (item, server_config[item])
+		to_write_string = '%s="%s"\n' % (item, server_config[item])
 		fo.write(to_write_string)
 
 	fo.close()

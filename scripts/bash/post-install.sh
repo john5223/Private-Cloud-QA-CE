@@ -14,6 +14,7 @@ qemu_emulator=/usr/bin/kvm
 total_cookbooks=0
 run_list_count=0
 STATUS_FIFO=/opt/rpcs/.status_fifo
+CHEF_IMAGE_HOST=${CHEF_IMAGE_HOST:-c390813.r13.cf1.rackcdn.com}
 
 # source the external functions
 . /opt/rpcs/functions.sh

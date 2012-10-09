@@ -3,10 +3,9 @@
 ###################################################################################
 ## This is a script that is run locally to prepare a server for installing alamo ##
 ## Author : Solomon Wagner                                                       ##
-###################################################################################   
+################################################################################### 
 
 #check to make sure user can be root
-
 if [ `whoami` != "root" ]; then
     echo "Can only run script as root"; exit;
 fi
@@ -42,15 +41,49 @@ echo "Making /opt/rpcs directory..."
 mkdir -p /opt/rpcs
 echo "...Done"
 
-echo "Moving into /opt/rpcs directory..."
+echo "Moving post-install.sh to /opt/rpcs..."
+mv /home/administrator/post-install.sh /opt/rpcs 
+echo "...Done"
+
+echo "Moving functions.sh to /opt/rpcs..."
+mv /home/administrator/functions.sh /opt/rpcs 
+echo "...Done"
+
+#Get ip address for eth0 (hopefully public ip) 
+ip=`ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+echo "eth0 ip address: $ip"
+
+echo "Copying $ip-rpcs.cfg to rpcs.cfg..."
+cp $ip-rpcs.cfg rpcs.cfg
+echo "...Done"
+
+echo "Moving rpcs.cfg into /opt/rpcs directory..."
+mv /home/administrator/rpcs.cfg /opt/rpcs
+echo "...Done"
+
+# Download the chef-server image	  	
+if [ `ls | grep ${CHEF_IMAGE_NAME}` = $CHEF_IMAGE_NAME ]; then  	
+	echo "${CHEF_IMAGE_NAME} already downloaded"	  	
+else
+	echo "Downloading ${CHEF_IMAGE_NAME}..."  	
+	wget ${CHEF_IMAGE_URL}  	
+	echo "...Done"
+fi
+
+echo "Copying ${CHEF_IMAGE_NAME} to /opt/rpcs"
+cp /home/administrator/$CHEF_IMAGE_NAME /opt/rpcs/
+echo "...Done"
+
+echo "Move into /opt/rpcs"
 cd /opt/rpcs
+pwd
 echo "...Done"
 
 # Get the hostname of the server
 echo "HOSTNAME : ${HOSTNAME}"
 
 # Download the cirros image
-if [ `ls | grep $CIRROS_IMAGE_NAME` = $CIRROS_IMAGE_NAME ]; then
+if [ `ls | grep ${CIRROS_IMAGE_NAME}` = $CIRROS_IMAGE_NAME ]; then
 	echo "${CIRROS_IMAGE_NAME} already downloaded"
 else
 	echo "Downloading ${CIRROS_IMAGE_NAME}..."
@@ -58,8 +91,14 @@ else
 	echo "...Done"
 fi
 
+# Chmod the Cirros Image gz to be executable
+echo "Chmoding 0755 ${CIRROS_IMAGE_NAME}..."
+chmod 0755 ${CIRROS_IMAGE_NAME}
+echo "...Done"
+
+echo 
 # Download the precise image
-if [ `ls | grep $PRECISE_IMAGE_NAME` = $PRECISE_IMAGE_NAME ]; then
+if [ `ls | grep ${PRECISE_IMAGE_NAME}` = $PRECISE_IMAGE_NAME ]; then
 	echo "${PRECISE_IMAGE_NAME} already downloaded"
 else
 	echo "Downloading ${PRECISE_IMAGE_NAME}..."
@@ -67,20 +106,22 @@ else
 	echo "...Done"
 fi
 
-# Download the chef-server image
-if [ `ls | grep $CHEF_IMAGE_NAME` = $CHEF_IMAGE_NAME ]; then
-	echo "${CHEF_IMAGE_NAME} already downloaded"
-else
-	echo "Downloading ${CHEF_IMAGE_NAME}..."
-	wget ${CHEF_IMAGE_URL}
-	echo "...Done"
-fi
+# Chmod the Precise Image gz to be executable
+echo "Chmoding 0755 ${PRECISE_IMAGE_NAME}..."
+chmod 0755 ${PRECISE_IMAGE_NAME}
+echo "...Done"
+
+# Chmod the chef-server image to be executable
+echo "Chmoding 0755 ${CHEF_IMAGE_NAME}..."
+chmod 0755 ${CHEF_IMAGE_NAME}
+echo "...Done"
+
+# creating a chef-server.qcow2.pristine file to make the post-install.sh ignore the wget
+echo "Touching fake chef-server.qcow2.pristine file..."
+touch chef-server.qcow2.pristine
+echo "...Done"
 
 # Once we have all we need, run the post-install.sh script
 echo "CHMODing post-install.sh..."
-chmod +x post-install.sh
-echo "...Done"
-
-echo "Executing post-install.sh..."
-./post-install.sh
+chmod 0755 post-install.sh
 echo "...Done"
