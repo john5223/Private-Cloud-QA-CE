@@ -42,7 +42,7 @@ results = parser.parse_args()
 
 # Connect to the host
 print "Setting up session"
-session = ssh_session(results.user_name, results.host_name, results.user_passwd, results.verbose)
+session = ssh_session(results.user_name, results.ip, results.user_passwd, results.verbose)
 
 print "Running zodiac...."
 print 'bash /opt/zodiac/runZodiac %s' % (results.zodiac_host_id)
