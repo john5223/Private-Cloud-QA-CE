@@ -45,8 +45,8 @@ print "Setting up session"
 session = ssh_session(results.user_name, results.ip, results.user_passwd, results.verbose)
 
 print "Running zodiac...."
-print 'bash /opt/zodiac/runZodiac %s' % (results.zodiac_host_id)
-session.ssh('bash /opt/zodiac/runZodiac %s' % (results.zodiac_host_id))
+print 'bash /opt/zodiac/runZodiac.sh %s' % (results.zodiac_host_id)
+session.ssh('bash /opt/zodiac/runZodiac.sh %s' % (results.zodiac_host_id))
 
 
 session.close()
